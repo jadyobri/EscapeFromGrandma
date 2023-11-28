@@ -23,7 +23,11 @@ let config = {
 
 
 let game = new Phaser.Game(config); 
+
 let cursors; 
 let keyT; 
 let keyM; 
 let keySPACE; 
+
+let gameOver = false; 
+let playerDirection = 'right'

@@ -10,11 +10,16 @@ class Load extends Phaser.Scene{
             frameHeight: 96
         }); 
         this.load.image('mainscreen', 'main.png'); 
+        this.load.spritesheet('grandma', 'Evilgrandma.png', {
+            frameWidth: 95, 
+            frameHeight: 96, 
+        })
 
     } 
 
     create(){
-        this.anims.create({ //missing running-right 
+        //missing some animation sequences for character 
+        this.anims.create({ 
             key: 'running-left', 
             frameRate: 3, 
             //repeat: 1, 
