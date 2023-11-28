@@ -7,7 +7,7 @@ let config = {
     }, 
     width: 800, 
     height: 600, 
-    scene: [Menu], //add Menu scene 
+    scene: [Load, Menu, Tutorial], //add Menu scene 
     physics: {
         default: 'arcade',
         arcade: {
@@ -23,3 +23,6 @@ let config = {
 
 
 let game = new Phaser.Game(config); 
+let cursors; 
+let keyT; 
+let keyM; 
