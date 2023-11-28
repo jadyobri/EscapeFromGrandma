@@ -29,6 +29,15 @@ class Load extends Phaser.Scene{
             }), 
         })
         this.anims.create({ 
+            key: 'running-right', 
+            frameRate: 3, 
+            //repeat: 1, 
+            frames: this.anims.generateFrameNumbers('character', {
+                start: 14, 
+                end: 15 
+            }), 
+        })
+        this.anims.create({ 
             key: 'idle-right', 
             frameRate: 3, 
             frames: this.anims.generateFrameNumbers('character', {
@@ -68,7 +77,6 @@ class Load extends Phaser.Scene{
             }), 
         })
 
-        cursors = this.input.keyboard.createCursorKeys();
         this.scene.start("menuScene");
     }
 
