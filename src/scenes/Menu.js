@@ -8,6 +8,8 @@ class Menu extends Phaser.Scene {
         this.menuscreen = this.add.tileSprite(0, 0, 800, 600, 'menuscreen').setOrigin(0, 0); 
         keyT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T); 
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); 
+
+        cursors = this.input.keyboard.createCursorKeys();
         
     }
 

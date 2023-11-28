@@ -28,10 +28,6 @@ let cursors;
 let keyT; 
 let keyM; 
 let keySPACE; 
-let keyRIGHT; 
-let keyLEFT; 
-let keyUP; 
-let keyDOWN; 
 
 let gameOver = false; 
 let playerDirection = 'right'
