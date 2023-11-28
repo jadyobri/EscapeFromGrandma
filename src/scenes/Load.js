@@ -6,7 +6,7 @@ class Load extends Phaser.Scene{
         this.load.path = './assets/'
         this.load.image('menuscreen', 'MenuScreen.PNG'); 
         console.log('here'); 
-        this.load.spritesheet('character', 'Ungratefulgrandchild1.png', {
+        this.load.spritesheet('character', 'Ungratefulgrandchild.png', {
             frameWidth: 95, 
             frameHeight: 96
         }); 
@@ -23,7 +23,7 @@ class Load extends Phaser.Scene{
                 end: 2 
             }), 
         })
-        this.anims.create({ //missing idle left 
+        this.anims.create({ 
             key: 'idle-right', 
             frameRate: 3, 
             frames: this.anims.generateFrameNumbers('character', {
@@ -31,7 +31,7 @@ class Load extends Phaser.Scene{
                 end: 0 
             }), 
         })
-        this.anims.create({ //no need for startled left 
+        this.anims.create({ 
             key: 'startled-right', 
             frameRate: 3, 
             frames: this.anims.generateFrameNumbers('character', {
@@ -39,7 +39,7 @@ class Load extends Phaser.Scene{
                 end: 3 
             }), 
         })
-        this.anims.create({ //missing idle left 
+        this.anims.create({ 
             key: 'idle-right', 
             frameRate: 3, 
             frames: this.anims.generateFrameNumbers('character', {
@@ -47,15 +47,7 @@ class Load extends Phaser.Scene{
                 end: 0 
             }), 
         })
-        this.anims.create({ //missing idle left 
-            key: 'struggling-left', 
-            frameRate: 3, 
-            frames: this.anims.generateFrameNumbers('character', {
-                start: 5, 
-                end: 7 
-            }), 
-        })
-        this.anims.create({ //missing idle left 
+        this.anims.create({ 
             key: 'struggling-left', 
             frameRate: 3, 
             frames: this.anims.generateFrameNumbers('character', {

@@ -7,7 +7,7 @@ let config = {
     }, 
     width: 800, 
     height: 600, 
-    scene: [Load, Menu, Tutorial], //add Menu scene 
+    scene: [Load, Menu, Tutorial, Play], //add Menu scene 
     physics: {
         default: 'arcade',
         arcade: {
