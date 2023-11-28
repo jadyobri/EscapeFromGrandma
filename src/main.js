@@ -26,3 +26,4 @@ let game = new Phaser.Game(config);
 let cursors; 
 let keyT; 
 let keyM; 
+let keySPACE; 

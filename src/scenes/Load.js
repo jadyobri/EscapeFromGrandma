@@ -5,12 +5,12 @@ class Load extends Phaser.Scene{
     preload(){
         this.load.path = './assets/'
         this.load.image('menuscreen', 'MenuScreen.PNG'); 
-        console.log('here'); 
         this.load.spritesheet('character', 'Ungratefulgrandchild.png', {
             frameWidth: 95, 
             frameHeight: 96
         }); 
-        console.log('character'); 
+        this.load.image('mainscreen', 'main.png'); 
+
     } 
 
     create(){
