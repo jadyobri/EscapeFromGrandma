@@ -4,21 +4,26 @@ class Character extends Phaser.Physics.Arcade.Sprite{
 
         scene.add.existing(this); 
         scene.physics.add.existing(this); 
+        this.body.setCollideWorldBounds(true);
+
+       // this.direction = 
+
         this.moveSpeed = 6; 
         
     } 
 
     update(){
         //keyboard functionality 
-        if(this.cursors.left.isDown){
-            //something 
-        }
-        if(this.cursors.right.isDown){
-            //something 
-        }
-        if(this.cursors.up.isDown){
-            //something 
-        }
+        // if(this.cursors.left.isDown){
+        //     //something 
+        // }
+        // if(this.cursors.right.isDown){
+        //     //something 
+        // }
+        // if(this.cursors.up.isDown){
+        //     //something 
+        // }
+        //if(left)
 
        
     } 

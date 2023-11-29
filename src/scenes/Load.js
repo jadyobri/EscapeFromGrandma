@@ -45,6 +45,7 @@ class Load extends Phaser.Scene{
                 end: 0 
             }), 
         })
+        //at beginning of level play startled animation and you can only move only the aimation ends
         this.anims.create({ 
             key: 'startled-right', 
             frameRate: 3, 
@@ -54,11 +55,11 @@ class Load extends Phaser.Scene{
             }), 
         })
         this.anims.create({ 
-            key: 'idle-right', 
+            key: 'idle-left', 
             frameRate: 3, 
             frames: this.anims.generateFrameNumbers('character', {
-                start: 0, 
-                end: 0 
+                start: 5, 
+                end: 7
             }), 
         })
         this.anims.create({ 
