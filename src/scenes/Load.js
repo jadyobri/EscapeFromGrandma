@@ -58,8 +58,8 @@ class Load extends Phaser.Scene{
             key: 'idle-left', 
             frameRate: 3, 
             frames: this.anims.generateFrameNumbers('character', {
-                start: 5, 
-                end: 7
+                start: 12, 
+                end: 12
             }), 
         })
         this.anims.create({ 
