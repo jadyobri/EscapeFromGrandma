@@ -8,7 +8,15 @@ class Play extends Phaser.Scene {
         this.player = this.physics.add.sprite(game.config.width/4, game.config.height-150, 'character').setScale(1.5);  //character starting position 
         this.player.setCollideWorldBounds(true); 
         cursors = this.input.keyboard.createCursorKeys();
-        
+        let inviswall = this.physics.add.sprite(game.config.width/2,game.config.height-60,'invisible');
+        inviswall.setSize(game.config.width, inviswall.height);
+        inviswall.setDisplaySize(game.config.width, inviswall.height);
+        console.log(inviswall.width);
+        inviswall.body.setImmovable(true);
+        this.physics.add.collider(this.player, inviswall);
+        inviswall.setVisible(false);
+        //inviswall.setCollideWorldBounds(true);
+       // inviswall.setSize(game.config.width, )
         this.direction = true; //right 
         this.player.body.setGravityY(300); 
         // this.direction = true; //true = right

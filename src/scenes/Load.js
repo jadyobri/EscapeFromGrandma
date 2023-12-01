@@ -9,6 +9,7 @@ class Load extends Phaser.Scene{
             frameWidth: 95, 
             frameHeight: 96
         }); 
+        this.load.image('invisible', "one_way_wall.png");
         this.load.image('mainscreen', 'main.png'); 
         this.load.spritesheet('grandma', 'Evilgrandma.png', {
             frameWidth: 95, 
