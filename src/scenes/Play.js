@@ -5,104 +5,220 @@ class Play extends Phaser.Scene {
 
     create(){
 
-        this.gameOver = false; 
-        this.mainscreen = this.add.tileSprite(0, 0, 3000, 600, 'allscenes').setOrigin(0, 0); 
-        let inviswall = this.physics.add.sprite(game.config.width+600,game.config.height-60,'invisible');
+       // this.jumped = 0;
+        this.mainscreen = this.add.tileSprite(0, 0, 800, 600, 'mainscreen').setOrigin(0, 0); 
+       
+        //Player
+        this.player = this.physics.add.sprite(game.config.width/4, game.config.height-150, 'character').setScale(1.5);  //character starting position 
 
-        //player 
-        this.player = this.physics.add.sprite(game.config.width/2, game.config.height-150, 'character').setScale(1.5);
-        this.player.setFlipX(true); 
         this.player.setCollideWorldBounds(true); 
-        this.player.setSize(50,60); 
         
-        //grandma 
-        this.grandma = this.physics.add.sprite(game.config.width/4, game.config.height-135, 'grandma').setScale(2.25);
-        this.grandma.setFlipX(true); 
-        this.grandma.setCollideWorldBounds(true); 
-        this.grandma.setImmovable(true); 
-        this.grandma.setSize(50,60); 
-        this.grandma.setOffset(15, 25); 
-
-        //invisible wall 
+        cursors = this.input.keyboard.createCursorKeys();
+        let inviswall = this.physics.add.sprite(game.config.width/2,game.config.height-60,'invisible');
+        
         inviswall.setSize(game.config.width, inviswall.height);
         inviswall.setDisplaySize(game.config.width, inviswall.height);
         console.log(inviswall.width);
         inviswall.body.setImmovable(true);
-        inviswall.setVisible(false);
         this.physics.add.collider(this.player, inviswall);
+        //inviswall.setVisible(false);
+        //inviswall.setCollideWorldBounds(true);
+       // inviswall.setSize(game.config.width, )
+        this.direction = true; //right 
+        this.player.body.setGravityY(300); 
+        this.done = false;
+        // this.direction = true; //true = right
+       // keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT); 
+       // keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT); 
+       // keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP); 
+       // keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+       // keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        //keyJ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
+        
+       // key
+        //f key for fire
+        //j Key for jump
+        //cannot fire mid-air
+        //cannot jump while firing
+        //
+        //if
+        //
+        //Grandma
+        this.lola = this.physics.add.sprite(game.config.width/2, game.config.height-200, "grandma").setScale(2.0);
+        this.lola.setCollideWorldBounds(true);
+        this.lola.setSize(this.lola.width/2, this.lola.height/2)
+        //this.lola.setCircle(this.lola.width/3);
+        //this.lola.body.setOffset(this.lola.width/3,this.lola.height/4);
+        //this.lola.body.setImmovable(true);
+        this.lola.body.setOffset(this.lola.width/3, this.lola.height/2.5)
+        
+        //this.lola.setSize(this.lola.width,this.lola.height);
+        this.physics.add.collider(this.lola, inviswall);
+        this.noMove = false;
+        // this.physics.add.overlap(this.player, this.lola,function(player, lola){
+        // //console.log("here");
+        // //  if(this.direction == true){
+        // //     //console.log("here");
+        //       this.player.anims.play("struggling-right");
+        // //  }
+        // //  else{
+        // //     //console.log("here");
+        // //      this.player.anims.play("struggling-left");
+        // //  }
+        //     //this.noMove = true;
+        // },null,this)
+        // this.physics.add.collider(this.player, this.lola, (player, lola)=> { 
+        //     if(this.direction == true){
+        //     this.player.anims.play("struggling-right",true);
+        //     }
+        //      else{
+        //         this.player.anims.play("struggling-left",true);
+        //     }
+        //  })
+        this.lola.body.setGravityY(300); 
+        inviswall.setVisible(false);
 
-        //create cursor keys
-        cursors = this.input.keyboard.createCursorKeys();
+        
 
-        this.cameras.main.setBounds(0, 0, 3000, 600); 
-        this.cameras.main.startFollow(this.player, true, 0.25, 0.25, 150); 
-        this.physics.world.setBounds(0, 0, 3000, 600); 
-
-        this.cam = this.cameras.main; 
-
-        this.physics.add.collider(this.player, this.grandma, (player, grandma) => {
-            //.once('animationcomplete') does not work D: 
-            this.player.anims.play('struggling-left'); 
-            console.log(this.gameOver); 
-            this.gameOver = true; 
-            
-        })
-
-        this.player.setGravityY(300); 
-       
+        
 
     } 
+    // squeal(){
+    //     this.player.anims.play("stuggling-right");
+    // }
 
     update(){
+    // if(this.noMove == true){
+    //         if(this.direction == true){
+    //         this.player.anims.play("struggling-right",true);
+    //         }
+    //          else{
+    //             this.player.anims.play("struggling-left",true);
+    //         }
+    // }
+    this.physics.add.overlap(this.player, this.lola,()=>{
+        //console.log("here");
+        //  if(this.direction == true){
+        //     //console.log("here");
+        
+        this.player.setVelocity(0,0);
 
-        if(this.gameOver == false){
-            //everything is flipped because of FlipX 
-            this.checkCamBounds(this.player, this.cam); 
+        if(this.done != true){
+        this.done = true;
 
-            if (cursors.left.isDown){
-                this.player.setVelocityX(-160);
-                this.player.anims.play('running-right', true);
-                this.direction = false; 
-            }
-            else if (cursors.right.isDown){
-                this.player.setVelocityX(160);
-                this.player.anims.play('running-left', true);
-                this.direction = true; 
-            }
-            else
-            {
-                if(this.direction == true){
-                    this.player.setVelocityX(0);
-                    this.player.anims.play('idle-left');
-                } 
-                else{
-                    this.player.setVelocityX(0); 
-                    this.player.anims.play('idle-right'); 
-                }
-            }
-            if (Phaser.Input.Keyboard.JustDown(cursors.up)){
-                this.player.setVelocityY(-200);
-                if(this.direction == true){
-                    this.player.setVelocityX(0);
-                    console.log('???')
-                    this.player.anims.play('jumping-right');
-                } 
-                else{
-                    this.player.setVelocityX(0); 
-                    this.player.anims.play('jumping-left'); 
-                }
-            }   
+        this.player.anims.play("struggling-right");
+        this.time.addEvent({delay:3000, callback: ()=>{
+            this.scene.start("menuScene");
+        }})
+        }
+        
+        
 
-        } else{
-            this.scene.start('gameOverScene');  
-        }  
+
+        //}
+        //this.player.on(Phaser.Animations.Events.ANIMATION_COMPLETE, ()=>{
+                
+            //     //this.player.setVelocity(0,0);
+  
+                 
+            // })
+
+        
+            //    this.player.events.onAnimationComplete(()=>{//('autocomplete',()=>{
+            //      alert("Animation done!");
+            //    },this)//,squeal())
+
+
+             // this.done = true;
+              
+
+              //this.scene.start("menuScene");
+              //this.scene.input.keyboard.enabled = false;
+
+        //  }
+        //  else{
+        //     //console.log("here");
+        //      this.player.anims.play("struggling-left");
+        //  }
+            //this.noMove = true;
+        },null,this)
+    if(this.done == false){
+    if (cursors.left.isDown){
+        this.player.setVelocityX(-160);
+        this.player.anims.play('running-right', true);
+        this.direction = false; 
     }
-    
-    checkCamBounds(player, cam){
-        if(player.x + player.width/2 > cam.width + cam.scrollX) {
-            cam.setScoll(cam.setScrollX + cam.width, cam.scrollY)
-            player.x = cam.scrollX + player.width/2; 
+    else if (cursors.right.isDown){
+        this.player.setVelocityX(160);
+        this.player.anims.play('running-right', true);
+        this.direction = true; 
+    }
+    else
+    {
+        if(this.direction == true){
+            this.player.setVelocityX(0);
+            this.player.anims.play('idle-right');
+        } 
+        else{
+            this.player.setVelocityX(0); 
+            this.player.anims.play('idle-left'); 
         }
     }
+    if (Phaser.Input.Keyboard.JustDown(cursors.up) && this.player.body.touching.down)
+    {
+        this.player.setVelocityY(-300);
+        //this.jumped = 0;
+    }   
+}
+    // if(this.checkCollision(this.player, this.lola) == true){
+    //     if(this.direction == true){
+    //             this.player.anims.play("struggling-right");
+    //             }
+    //              else{
+    //                 this.player.anims.play("struggling-left");
+    //             } 
+    // }
+    
 
-} 
+    
+        /*let playerVector = new Phaser.Math.Vector2(0,0);
+        if(cursors.left.isDown){
+            playerVector.x = -1;
+            playerDirection = 'left';
+ 
+           
+        }
+        else if(cursors.right.isDown){
+        // this.player.x += this.PLAYER_VELOCITY;
+            playerVector.x = 1;
+            playerDirection = 'right';
+
+    
+        }
+
+
+        if(cursors.up.isDown){
+            console.log('???'); 
+            this.player.body.setAccelerationY(-450)
+            //this.player.body.setDragY(-1000)
+        } 
+        
+        this.player.setVelocity(this.PLAYER_VELOCITY * playerVector.x, this.PLAYER_VELOCITY*playerVector.y);
+        let playerMovement;
+        playerVector.length() ? playerMovement = 'running' : playerMovement = 'idle';
+        this.player.play(playerMovement + '-' + playerDirection, true); */ 
+   // } 
+}
+checkCollision(player,lola){
+    // if(player.x < lola.x + lola.width && player.x + player.width > lola.width && lola.x && player.y < lola.y + lola.height && player.height + player.y > lola.y){
+    //     return true;
+    // }
+    if(lola.x < player.x + player.width && lola.x + lola.width > player.width && player.x && lola.y < player.y + player.height && lola.height + lola.y > player.y){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+}
