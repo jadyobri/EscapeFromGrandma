@@ -13,13 +13,15 @@ class Play extends Phaser.Scene {
         this.player = this.physics.add.sprite(game.config.width/2, game.config.height-150, 'character').setScale(1.5);
         this.player.setFlipX(true); 
         this.player.setCollideWorldBounds(true); 
-        this.player.setGravityY(300); 
+        this.player.setSize(50,60); 
         
         //grandma 
-        this.grandma = this.physics.add.sprite(game.config.width/4, game.config.height-150, 'grandma').setScale(2.0);
+        this.grandma = this.physics.add.sprite(game.config.width/4, game.config.height-135, 'grandma').setScale(2.25);
         this.grandma.setFlipX(true); 
         this.grandma.setCollideWorldBounds(true); 
         this.grandma.setImmovable(true); 
+        this.grandma.setSize(50,60); 
+        this.grandma.setOffset(15, 25); 
 
         //invisible wall 
         inviswall.setSize(game.config.width, inviswall.height);
@@ -45,6 +47,8 @@ class Play extends Phaser.Scene {
             this.gameOver = true; 
             
         })
+
+        this.player.setGravityY(300); 
        
 
     } 
@@ -76,11 +80,19 @@ class Play extends Phaser.Scene {
                     this.player.anims.play('idle-right'); 
                 }
             }
-            if (Phaser.Input.Keyboard.JustDown(cursors.up))
-            {
+            if (Phaser.Input.Keyboard.JustDown(cursors.up)){
                 this.player.setVelocityY(-200);
-                //this.jumped = 0;
+                if(this.direction == true){
+                    this.player.setVelocityX(0);
+                    console.log('???')
+                    this.player.anims.play('jumping-right');
+                } 
+                else{
+                    this.player.setVelocityX(0); 
+                    this.player.anims.play('jumping-left'); 
+                }
             }   
+
         } else{
             this.scene.start('gameOverScene');  
         }  

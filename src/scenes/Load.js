@@ -40,14 +40,25 @@ class Load extends Phaser.Scene{
                 end: 15 
             }), 
         })
+
         this.anims.create({ 
-            key: 'idle-right', 
+            key: 'jumping-right', 
             frameRate: 3, 
+            //repeat: 1, 
             frames: this.anims.generateFrameNumbers('character', {
-                start: 0, 
-                end: 0 
+                frames: [0, 14,4] 
             }), 
         })
+        this.anims.create({ 
+            key: 'jumping-left', 
+            frameRate: 3, 
+            //repeat: 1, 
+            frames: this.anims.generateFrameNumbers('character', {
+                frames: [12,2,1] 
+            }), 
+        })
+        
+
         //at beginning of level play startled animation and you can only move only the aimation ends
         this.anims.create({ 
             key: 'startled-right', 
@@ -63,6 +74,14 @@ class Load extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('character', {
                 start: 12, 
                 end: 12
+            }), 
+        })
+        this.anims.create({ 
+            key: 'idle-right', 
+            frameRate: 3, 
+            frames: this.anims.generateFrameNumbers('character', {
+                start: 0, 
+                end: 0
             }), 
         })
         this.anims.create({ 
