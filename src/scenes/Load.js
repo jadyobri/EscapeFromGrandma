@@ -5,6 +5,7 @@ class Load extends Phaser.Scene{
     preload(){
         this.load.path = './assets/'
         this.load.image('menuscreen', 'MenuScreen.PNG'); 
+        this.load.image('gameover', 'GameOver.PNG'); 
         this.load.spritesheet('character', 'FinalUngratefulgrandchild.png', {
             frameWidth: 95, 
             frameHeight: 96
@@ -15,6 +16,7 @@ class Load extends Phaser.Scene{
             frameWidth: 95, 
             frameHeight: 96, 
         })
+        
 
     } 
 

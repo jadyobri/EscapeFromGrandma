@@ -39,8 +39,8 @@ class Play extends Phaser.Scene {
         this.cam = this.cameras.main; 
 
         this.physics.add.collider(this.player, this.grandma, (player, grandma) => {
+            //.once('animationcomplete') does not work D: 
             this.player.anims.play('struggling-left'); 
-            //this.player.destroy(); 
             console.log(this.gameOver); 
             this.gameOver = true; 
             
@@ -53,7 +53,6 @@ class Play extends Phaser.Scene {
 
         if(this.gameOver == false){
             //everything is flipped because of FlipX 
-
             this.checkCamBounds(this.player, this.cam); 
 
             if (cursors.left.isDown){
@@ -83,8 +82,8 @@ class Play extends Phaser.Scene {
                 //this.jumped = 0;
             }   
         } else{
-            console.log('????')
-        }
+            this.scene.start('gameOverScene');  
+        }  
     }
     
     checkCamBounds(player, cam){
