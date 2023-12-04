@@ -5,16 +5,19 @@ class Load extends Phaser.Scene{
     preload(){
         this.load.path = './assets/'
         this.load.image('menuscreen', 'MenuScreen.PNG'); 
-        this.load.spritesheet('character', 'Ungratefulgrandchild.png', {
+        this.load.image('gameover', 'GameOver.PNG'); 
+        this.load.image('clouds', 'pixilart-drawing-clouds.png'); 
+        this.load.spritesheet('character', 'FinalUngratefulgrandchild.png', {
             frameWidth: 95, 
             frameHeight: 96
         }); 
         this.load.image('invisible', "one_way_wall.png");
-        this.load.image('mainscreen', 'main.png'); 
-        this.load.spritesheet('grandma', 'Evilgrandma.png', {
+        this.load.image('allscenes', 'Scenes.png'); 
+        this.load.spritesheet('grandma', 'FinalEvilgrandma.png', {
             frameWidth: 95, 
             frameHeight: 96, 
         })
+        
 
     } 
 
@@ -26,7 +29,7 @@ class Load extends Phaser.Scene{
             //repeat: 1, 
             frames: this.anims.generateFrameNumbers('character', {
                 start: 1, 
-                end: 2 
+                end: 2, 
             }), 
         })
         this.anims.create({ 
@@ -38,14 +41,25 @@ class Load extends Phaser.Scene{
                 end: 15 
             }), 
         })
+
         this.anims.create({ 
-            key: 'idle-right', 
+            key: 'jumping-right', 
             frameRate: 3, 
+            //repeat: 1, 
             frames: this.anims.generateFrameNumbers('character', {
-                start: 0, 
-                end: 0 
+                frames: [0, 14,4] 
             }), 
         })
+        this.anims.create({ 
+            key: 'jumping-left', 
+            frameRate: 3, 
+            //repeat: 1, 
+            frames: this.anims.generateFrameNumbers('character', {
+                frames: [12,2,1] 
+            }), 
+        })
+        
+
         //at beginning of level play startled animation and you can only move only the aimation ends
         this.anims.create({ 
             key: 'startled-right', 
@@ -64,8 +78,16 @@ class Load extends Phaser.Scene{
             }), 
         })
         this.anims.create({ 
-            key: 'struggling-left', 
+            key: 'idle-right', 
             frameRate: 3, 
+            frames: this.anims.generateFrameNumbers('character', {
+                start: 0, 
+                end: 0
+            }), 
+        })
+        this.anims.create({ 
+            key: 'struggling-left', 
+            frameRate: 5, 
             frames: this.anims.generateFrameNumbers('character', {
                 start: 5, 
                 end: 7 
@@ -77,6 +99,14 @@ class Load extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('character', {
                 frames: [5, 5, 5, 10, 11, 11, 11]
             }), 
+        })
+        this.anims.create({
+            key: 'grandma-idle-right', 
+            frameRate: 3, 
+            frames: this.anims.generateFrameNumbers('grandma', {
+                start: 9, 
+                end: 9
+            })
         })
 
         this.scene.start("menuScene");

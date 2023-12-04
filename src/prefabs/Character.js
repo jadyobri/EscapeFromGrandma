@@ -10,19 +10,4 @@ class Character extends Phaser.Physics.Arcade.Sprite{
         
     } 
 
-    update(){
-        //keyboard functionality 
-        // if(this.cursors.left.isDown){
-        //     //something 
-        // }
-        // if(this.cursors.right.isDown){
-        //     //something 
-        // }
-        // if(this.cursors.up.isDown){
-        //     //something 
-        // }
-        //if(left)
-
-       
-    } 
 } 
