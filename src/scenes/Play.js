@@ -16,12 +16,13 @@ class Play extends Phaser.Scene {
         this.player.setSize(50,60); 
         
         //grandma 
-        this.grandma = this.physics.add.sprite(game.config.width/4, game.config.height-135, 'grandma').setScale(2.25);
+        this.grandma = this.physics.add.sprite(game.config.width/4, game.config.height-200, 'grandma').setScale(2.25);
         this.grandma.setFlipX(true); 
         this.grandma.setCollideWorldBounds(true); 
-        this.grandma.setImmovable(true); 
-        this.grandma.setSize(50,60); 
-        this.grandma.setOffset(15, 25); 
+        this.grandma.body.setGravityY(300);
+        //this.grandma.setImmovable(true); 
+        this.grandma.setSize(this.grandma.width/2,this.grandma.height/2); 
+        this.grandma.setOffset(this.grandma.width/6, this.grandma.height/2.5); 
 
         //invisible wall 
         inviswall.setSize(game.config.width, inviswall.height);
@@ -30,9 +31,10 @@ class Play extends Phaser.Scene {
         inviswall.body.setImmovable(true);
         inviswall.setVisible(false);
         this.physics.add.collider(this.player, inviswall);
-
+        this.physics.add.collider(this.grandma, inviswall);
         //this.physics.add.sprite(12, game.config.height / 4, 'clouds').setScale(2); 
 
+        this.done = false;
         //create cursor keys
         cursors = this.input.keyboard.createCursorKeys();
 
@@ -45,22 +47,67 @@ class Play extends Phaser.Scene {
         this.cameras.main.startFollow(this.player, true, 0.25, 0.25, 150);
 
 
-        this.physics.add.collider(this.player, this.grandma, (player, grandma) => {
-            //.once('animationcomplete') does not work D: 
-            this.player.anims.play('struggling-left'); 
-            console.log(this.gameOver); 
-            this.gameOver = true; 
+        // this.physics.add.collider(this.player, this.grandma, (player, grandma) => {
+        //     //.once('animationcomplete') does not work D: 
+        //     this.player.anims.play('struggling-left'); 
+        //     console.log(this.gameOver); 
+        //     this.gameOver = true; 
             
-        })
+        // })
 
         this.player.setGravityY(300); 
     } 
 
     update(){
-
+        this.physics.add.overlap(this.player, this.grandma,()=>{
+            //console.log("here");
+            //  if(this.direction == true){
+            //     //console.log("here");
+            
+            this.player.setVelocity(0,0);
+    
+            if(this.done != true){
+            this.done = true;
+    
+            this.player.anims.play("struggling-right");
+            this.time.addEvent({delay:3000, callback: ()=>{
+                this.scene.start('gameOverScene');  
+            }})
+            }
+            
+            
+    
+    
+            //}
+            //this.player.on(Phaser.Animations.Events.ANIMATION_COMPLETE, ()=>{
+                    
+                //     //this.player.setVelocity(0,0);
+      
+                     
+                // })
+    
+            
+                //    this.player.events.onAnimationComplete(()=>{//('autocomplete',()=>{
+                //      alert("Animation done!");
+                //    },this)//,squeal())
+    
+    
+                 // this.done = true;
+                  
+    
+                  //this.scene.start("menuScene");
+                  //this.scene.input.keyboard.enabled = false;
+    
+            //  }
+            //  else{
+            //     //console.log("here");
+            //      this.player.anims.play("struggling-left");
+            //  }
+                //this.noMove = true;
+            },null,this)
         this.checkCamBounds(this.player, this.cam);
 
-        if(this.gameOver == false){
+        if(this.done == false){
             //everything is flipped because of FlipX 
             this.checkCamBounds(this.player, this.cameras.main); 
 
@@ -85,7 +132,7 @@ class Play extends Phaser.Scene {
                     this.player.anims.play('idle-right'); 
                 }
             }
-            if (Phaser.Input.Keyboard.JustDown(cursors.up)){
+            if (Phaser.Input.Keyboard.JustDown(cursors.up)&& this.player.body.touching.down){
                 this.player.setVelocityY(-200);
                 this.player.setVelocityX(0); 
                 /*if(this.direction == true){
@@ -98,9 +145,9 @@ class Play extends Phaser.Scene {
                 }*/ 
             }   
 
-        } else{
-            this.scene.start('gameOverScene');  
-        }  
+        } //else{
+      //      this.scene.start('gameOverScene');  
+       // }  
     }
     
     checkCamBounds(player, cam){
