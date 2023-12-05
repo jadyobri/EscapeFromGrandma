@@ -7,6 +7,11 @@ class Load extends Phaser.Scene{
         this.load.image('menuscreen', 'MenuScreen.PNG'); 
         this.load.image('gameover', 'GameOver.PNG'); 
         this.load.image('clouds', 'pixilart-drawing-clouds.png'); 
+        this.load.image('table', 'table.png'); 
+        this.load.image('lamp', 'lamp.png'); 
+        this.load.image('rock', 'rock.png'); 
+        this.load.image('gun', 'Gun.png'); 
+        
         this.load.spritesheet('character', 'FinalUngratefulgrandchild.png', {
             frameWidth: 95, 
             frameHeight: 96

@@ -36,11 +36,14 @@ class Play extends Phaser.Scene {
         //create cursor keys
         cursors = this.input.keyboard.createCursorKeys();
 
-        this.cameras.main.setBounds(0, 0, 3000, 600); 
-        this.cameras.main.startFollow(this.player, true, 0.25, 0.25, 150); 
+        // this.cameras.main.setBounds(0, 0, 3000, 600); 
+        // this.cameras.main.startFollow(this.player, true, 0.25, 0.25, 150); 
         this.physics.world.setBounds(0, 0, 3000, 600); 
 
         this.cam = this.cameras.main; 
+        this.cameras.main.setBounds(0, 0, 1000, 600); 
+        this.cameras.main.startFollow(this.player, true, 0.25, 0.25, 150);
+
 
         this.physics.add.collider(this.player, this.grandma, (player, grandma) => {
             //.once('animationcomplete') does not work D: 
@@ -55,9 +58,11 @@ class Play extends Phaser.Scene {
 
     update(){
 
+        this.checkCamBounds(this.player, this.cam);
+
         if(this.gameOver == false){
             //everything is flipped because of FlipX 
-            this.checkCamBounds(this.player, this.cam); 
+            this.checkCamBounds(this.player, this.cameras.main); 
 
             if (cursors.left.isDown){
                 this.player.setVelocityX(-160);
@@ -99,10 +104,21 @@ class Play extends Phaser.Scene {
     }
     
     checkCamBounds(player, cam){
-        if(player.x + player.width/2 > cam.width + cam.scrollX) {
-            cam.setScoll(cam.setScrollX + cam.width, cam.scrollY)
-            player.x = cam.scrollX + player.width/2; 
+        // console.log( player.x, cam.x, cam.width)
+        //console.log(cam)
+        
+
+        if(player.x + player.width/2 > cam.width + 214) { //right at the edge :O 
+            //cam.setScoll(cam.setScrollX, cam.setScrollY); //(cam.setScrollX + cam.width, cam.scrollY)
+            cam.setScroll(cam.scrollX + cam.width, cam.scrollY)
+            cam.setBounds(0, 0, 2000, 600); 
+            //player.x = cam.width + 214 + player.width/2; 
+        } else if(player.x + player.width/2 > 2500){
+            console.log('here!')
+            cam.setScroll(cam.scrollX + cam.width, cam.scrollY)
+            cam.setBounds(0, 0, 3000, 600); 
         }
+        
     }
 
 } 
