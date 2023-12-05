@@ -105,15 +105,17 @@ class Play extends Phaser.Scene {
     
     checkCamBounds(player, cam){
         // console.log( player.x, cam.x, cam.width)
-        //console.log(cam)
+        //console.log(player.x)
+        //console.log(player.width/2)
+        console.log(cam.width); 
         
 
-        if(player.x + player.width/2 > cam.width + 214) { //right at the edge :O 
+        if(player.x + player.width/2 > 1000 && player.x + player.width/2 < 2000) { //right at the edge :O 
             //cam.setScoll(cam.setScrollX, cam.setScrollY); //(cam.setScrollX + cam.width, cam.scrollY)
             cam.setScroll(cam.scrollX + cam.width, cam.scrollY)
             cam.setBounds(0, 0, 2000, 600); 
             //player.x = cam.width + 214 + player.width/2; 
-        } else if(player.x + player.width/2 > 2500){
+        } else if(player.x + player.width/2 > 2001){
             console.log('here!')
             cam.setScroll(cam.scrollX + cam.width, cam.scrollY)
             cam.setBounds(0, 0, 3000, 600); 
