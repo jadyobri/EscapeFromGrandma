@@ -59,13 +59,14 @@ class Play extends Phaser.Scene {
     } 
 
     update(){
+        //this.physics.moveToObject(this.grandma, this.player, 100);
         this.physics.add.overlap(this.player, this.grandma,()=>{
             //console.log("here");
             //  if(this.direction == true){
             //     //console.log("here");
             
             this.player.setVelocity(0,0);
-    
+            this.grandma.setVelocity(0,0);
             if(this.done != true){
             this.done = true;
     
@@ -108,6 +109,13 @@ class Play extends Phaser.Scene {
         this.checkCamBounds(this.player, this.cam);
 
         if(this.done == false){
+            this.physics.moveToObject(this.grandma, this.player, 100);
+            // if(this.player.x < this.grandma.x){
+            //     this.anims.play('running-left');
+            // }
+            // else if(this.player.x > this.grandma.x){
+            //     this.anims.play('')
+            // }
             //everything is flipped because of FlipX 
             this.checkCamBounds(this.player, this.cameras.main); 
 
