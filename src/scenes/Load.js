@@ -3,15 +3,17 @@ class Load extends Phaser.Scene{
         super("loadScene");
     }
     preload(){
+        //load sprites 
         this.load.path = './assets/'
         this.load.image('menuscreen', 'MenuScreen.PNG'); 
         this.load.image('gameover', 'GameOver.PNG'); 
         this.load.image('clouds', 'pixilart-drawing-clouds.png'); 
         this.load.image('table', 'table.png'); 
+        this.load.image('chair', 'finalchair.png')
         this.load.image('lamp', 'lamp.png'); 
         this.load.image('rock', 'rock.png'); 
         this.load.image('gun', 'Gun.png'); 
-        
+
         this.load.spritesheet('character', 'FinalUngratefulgrandchild.png', {
             frameWidth: 95, 
             frameHeight: 96
@@ -22,16 +24,20 @@ class Load extends Phaser.Scene{
             frameWidth: 95, 
             frameHeight: 96, 
         })
-        
+
+        //load audio 
+        this.load.audio('jump', 'jumping.wav'); //Lefty_Studios
+        this.load.audio('click', 'click.wav'); //credits listed in IC Endless Runner 
+        this.load.audio('restart', 'restart.wav'); //will add credits at a later date 
+        this.load.audio('background', 'arcademusic.mp3'); //music by Luca Di Alessandro (Pixabay)
 
     } 
 
     create(){
-        //missing some animation sequences for character 
+        //animation sequences 
         this.anims.create({ 
             key: 'running-left', 
             frameRate: 3, 
-            //repeat: 1, 
             frames: this.anims.generateFrameNumbers('character', {
                 start: 1, 
                 end: 2, 
@@ -111,6 +117,22 @@ class Load extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('grandma', {
                 start: 9, 
                 end: 9
+            })
+        })
+        this.anims.create({
+            key: 'grandma-walking-right', 
+            frameRate: 3, 
+            frames: this.anims.generateFrameNumbers('grandma', {
+                start: 0, 
+                end: 1, 
+            })
+        })
+        this.anims.create({
+            key: 'grandma-kissing-right', 
+            frameRate: 3, 
+            frames: this.anims.generateFrameNumbers('grandma', {
+                start: 1, 
+                end: 2, 
             })
         })
 

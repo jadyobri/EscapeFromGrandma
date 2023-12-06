@@ -7,11 +7,11 @@ let config = {
     }, 
     width: 800, 
     height: 600, 
-    scene: [Load, Menu, Tutorial, Play, GameOver], //add Menu scene 
+    scene: [Load, Menu, Tutorial, Play, GameOver, Win], //add Menu scene 
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            //debug: true,
             gravity: {
                 x: 0,
                 y: 0, 
