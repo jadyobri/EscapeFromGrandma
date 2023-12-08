@@ -9,6 +9,16 @@ class Tutorial extends Phaser.Scene {
 
     create(){
         this.background = this.add.tileSprite(0, 0, 800, 600, 'tutorial').setOrigin(0,0); 
+
+        //particle emitter 
+        this.add.particles(675, game.config.height-275, 'heart', {
+            speed: 100,
+            lifespan: 3000,
+            frequency: 100, 
+            gravityY: -200
+        });
+
+        //added key to go back to menu 
         keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
         
         //adding tutorial text 

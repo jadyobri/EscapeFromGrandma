@@ -12,6 +12,7 @@ class Load extends Phaser.Scene{
         this.load.image('chair', 'finalchair.png')
         this.load.image('lamp', 'lamp.png'); 
         this.load.image('rock', 'rock.png'); 
+        this.load.image('heart', 'Heart.png'); 
         
         this.load.spritesheet('gun', 'Gun.png', {
             frameWidth: 186, 
@@ -110,7 +111,7 @@ class Load extends Phaser.Scene{
                 frames: [5, 5, 5, 10, 11, 11, 11]
             }), 
         })
-        
+
         //player holding/firing gun animations 
         this.anims.create({ 
             key: 'grab-gun-right', 
