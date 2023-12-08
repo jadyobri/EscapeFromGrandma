@@ -22,6 +22,7 @@ class Load extends Phaser.Scene{
             frameWidth: 95, 
             frameHeight: 96
         }); 
+
         this.load.image('invisible', "one_way_wall.png");
         this.load.image('allscenes', 'Scenes.png'); 
         this.load.spritesheet('grandma', 'FinalEvilgrandma.png', {
@@ -38,7 +39,7 @@ class Load extends Phaser.Scene{
     } 
 
     create(){
-        //animation sequences 
+        //player animations  
         this.anims.create({ 
             key: 'running-left', 
             frameRate: 3, 
@@ -50,7 +51,6 @@ class Load extends Phaser.Scene{
         this.anims.create({ 
             key: 'running-right', 
             frameRate: 3, 
-            //repeat: 1, 
             frames: this.anims.generateFrameNumbers('character', {
                 start: 14, 
                 end: 15 
@@ -60,7 +60,6 @@ class Load extends Phaser.Scene{
         this.anims.create({ 
             key: 'jumping-right', 
             frameRate: 3, 
-            //repeat: 1, 
             frames: this.anims.generateFrameNumbers('character', {
                 frames: [0, 14,4] 
             }), 
@@ -68,14 +67,10 @@ class Load extends Phaser.Scene{
         this.anims.create({ 
             key: 'jumping-left', 
             frameRate: 3, 
-            //repeat: 1, 
             frames: this.anims.generateFrameNumbers('character', {
                 frames: [12,2,1] 
             }), 
         })
-        
-
-        //at beginning of level play startled animation and you can only move only the aimation ends
         this.anims.create({ 
             key: 'startled-right', 
             frameRate: 3, 
@@ -115,7 +110,9 @@ class Load extends Phaser.Scene{
                 frames: [5, 5, 5, 10, 11, 11, 11]
             }), 
         })
-        this.anims.create({ //missing idle left 
+        
+        //player holding/firing gun animations 
+        this.anims.create({ 
             key: 'grab-gun-right', 
             frameRate: 3, 
             frames: this.anims.generateFrameNumbers('character', {
@@ -123,7 +120,7 @@ class Load extends Phaser.Scene{
                 end: 8 
             }), 
         })
-        this.anims.create({ //missing idle left 
+        this.anims.create({  
             key: 'grab-gun-left', 
             frameRate: 3, 
             frames: this.anims.generateFrameNumbers('character', {
@@ -131,7 +128,7 @@ class Load extends Phaser.Scene{
                 end: 16 
             }), 
         })
-        this.anims.create({ //missing idle left 
+        this.anims.create({  
             key: 'gun-fire-right', 
             frameRate: 3, 
             frames: this.anims.generateFrameNumbers('character', {
@@ -139,7 +136,7 @@ class Load extends Phaser.Scene{
                 end: 9 
             }), 
         })
-        this.anims.create({ //missing idle left 
+        this.anims.create({  
             key: 'gun-fire-left', 
             frameRate: 3, 
             frames: this.anims.generateFrameNumbers('character', {
@@ -200,6 +197,7 @@ class Load extends Phaser.Scene{
             })
         })
 
+        //start menu scene 
         this.scene.start("menuScene");
     }
 

@@ -29,6 +29,7 @@ class Play extends Phaser.Scene {
 
         //gun  
         this.gun = this.physics.add.sprite(800, game.config.height-200, 'gun').setScale(0.85);  
+        this.fired = 3; 
 
         //player 
         this.player = this.physics.add.sprite(game.config.width/2, game.config.height-150, 'character').setScale(1.5);
@@ -77,6 +78,7 @@ class Play extends Phaser.Scene {
         
         //create cursor keys
         cursors = this.input.keyboard.createCursorKeys();
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //
         this.physics.world.setBounds(0, 0, 3000, 600); 
@@ -135,6 +137,7 @@ class Play extends Phaser.Scene {
         //collision for the win screen 
         this.physics.add.overlap(this.player, this.rectangle,()=>{
             this.sound.play('click'); 
+            this.fireability = true; 
             this.player.setVelocity(0,0); 
             this.grandma.setVelocity(0,0); 
             if(this.done != true){
@@ -157,12 +160,12 @@ class Play extends Phaser.Scene {
             this.checkCamBounds(this.player, this.cameras.main); 
 
             //cursor movement
-            if (cursors.left.isDown){
+            if(cursors.left.isDown){
                 this.player.setVelocityX(-160);
                 this.player.anims.play('running-right', true);
                 this.direction = false; 
             }
-            else if (cursors.right.isDown){
+            else if(cursors.right.isDown){
                 this.player.setVelocityX(160);
                 this.player.anims.play('running-left', true);
                 this.direction = true; 
@@ -178,11 +181,22 @@ class Play extends Phaser.Scene {
                     this.player.anims.play('idle-right'); 
                 }
             }
-            if (Phaser.Input.Keyboard.JustDown(cursors.up)&& this.player.body.touching.down){
+            if(Phaser.Input.Keyboard.JustDown(cursors.up)&& this.player.body.touching.down){
                 this.player.setVelocityY(-250);
                 this.player.setVelocityX(0); 
                 this.sound.play('jump'); 
             }   
+            if(Phaser.Input.Keyboard.JustDown(keyF)){ //&& this.fired > 0 && this.fireability == true){ 
+                //not going into this 
+                //animations being overwritten D: 
+                console.log('hmmmmmm :O')
+                this.fired -= 1; 
+                if(this.direction == true){
+                    this.player.anims.play('gun-fire-right'); 
+                } else{
+                    this.player.anims.play('gun-fire-right'); 
+                }
+            }
         
         
         
