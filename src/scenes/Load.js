@@ -12,7 +12,11 @@ class Load extends Phaser.Scene{
         this.load.image('chair', 'finalchair.png')
         this.load.image('lamp', 'lamp.png'); 
         this.load.image('rock', 'rock.png'); 
-        this.load.image('gun', 'Gun.png'); 
+        
+        this.load.spritesheet('gun', 'Gun.png', {
+            frameWidth: 186, 
+            frameHeight: 103
+        })
 
         this.load.spritesheet('character', 'FinalUngratefulgrandchild.png', {
             frameWidth: 95, 
@@ -111,6 +115,40 @@ class Load extends Phaser.Scene{
                 frames: [5, 5, 5, 10, 11, 11, 11]
             }), 
         })
+        this.anims.create({ //missing idle left 
+            key: 'grab-gun-right', 
+            frameRate: 3, 
+            frames: this.anims.generateFrameNumbers('character', {
+                start: 8, 
+                end: 8 
+            }), 
+        })
+        this.anims.create({ //missing idle left 
+            key: 'grab-gun-left', 
+            frameRate: 3, 
+            frames: this.anims.generateFrameNumbers('character', {
+                start: 16, 
+                end: 16 
+            }), 
+        })
+        this.anims.create({ //missing idle left 
+            key: 'gun-fire-right', 
+            frameRate: 3, 
+            frames: this.anims.generateFrameNumbers('character', {
+                start: 8, 
+                end: 9 
+            }), 
+        })
+        this.anims.create({ //missing idle left 
+            key: 'gun-fire-left', 
+            frameRate: 3, 
+            frames: this.anims.generateFrameNumbers('character', {
+                start: 16, 
+                end: 17 
+            }), 
+        }) 
+
+        //grandma animations 
         this.anims.create({
             key: 'grandma-idle-right', 
             frameRate: 3, 
@@ -133,6 +171,32 @@ class Load extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('grandma', {
                 start: 1, 
                 end: 2, 
+            })
+        })
+
+        //animation for interacting with gun
+        this.anims.create({
+            key: 'all-guns', 
+            frameRate: 3, 
+            frames: this.anims.generateFrameNumbers('gun', {
+                start: 0, 
+                end: 0, 
+            })
+        })
+        this.anims.create({
+            key: 'minus-guns', 
+            frameRate: 3, 
+            frames: this.anims.generateFrameNumbers('gun', {
+                start: 0, 
+                end: 1, 
+            })
+        })
+        this.anims.create({
+            key: 'not-all-guns', 
+            frameRate: 3, 
+            frames: this.anims.generateFrameNumbers('gun', {
+                start: 1, 
+                end: 1, 
             })
         })
 

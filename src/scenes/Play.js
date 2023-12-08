@@ -27,6 +27,9 @@ class Play extends Phaser.Scene {
         this.chair1.setSize(75, 75); //45
         this.chair2.setSize(75, 75); //45 
 
+        //gun  
+        this.gun = this.physics.add.sprite(800, game.config.height-200, 'gun').setScale(0.85);  
+
         //player 
         this.player = this.physics.add.sprite(game.config.width/2, game.config.height-150, 'character').setScale(1.5);
         this.player.setFlipX(true); 
@@ -40,9 +43,6 @@ class Play extends Phaser.Scene {
         this.rock1.setImmovable(true); 
         this.rock2.setImmovable(true); 
         this.cloud3.setImmovable(true); 
-
-        //clouds  
-        //this.physics.add.sprite(12, game.config.height / 4, 'clouds').setScale(2); 
 
         //grandma 
         this.grandma = this.physics.add.sprite(game.config.width/4, game.config.height-175, 'grandma').setScale(2.25);
@@ -78,8 +78,7 @@ class Play extends Phaser.Scene {
         //create cursor keys
         cursors = this.input.keyboard.createCursorKeys();
 
-        // this.cameras.main.setBounds(0, 0, 3000, 600); 
-        // this.cameras.main.startFollow(this.player, true, 0.25, 0.25, 150); 
+        //
         this.physics.world.setBounds(0, 0, 3000, 600); 
 
         //camera movement 
@@ -105,8 +104,7 @@ class Play extends Phaser.Scene {
 
     update(){
         //this.physics.moveToObject(this.grandma, this.player, 100);
-        this.physics.add.overlap(this.player, this.grandma,()=>{
-            
+        this.physics.add.overlap(this.player, this.grandma,()=>{  
             this.player.setVelocity(0,0);
             this.grandma.setVelocity(0,0);
             if(this.done != true){
@@ -121,6 +119,20 @@ class Play extends Phaser.Scene {
         
         },null,this)
 
+        this.physics.add.overlap(this.player, this.gun,()=>{
+            //animations not playing in this overlap 
+            this.gun.anims.play('minus-guns'); 
+
+            if(this.direction == true){
+                this.player.anims.play('grab-gun-right'); 
+            }else{
+                this.player.anims.play('grab-gun-left'); 
+            }
+            //add text (3 shots left)
+
+        },null,this)
+
+        //collision for the win screen 
         this.physics.add.overlap(this.player, this.rectangle,()=>{
             this.sound.play('click'); 
             this.player.setVelocity(0,0); 
@@ -132,7 +144,7 @@ class Play extends Phaser.Scene {
 
         },null,this)
 
-
+        //checks position of the player and camera in comparison to the "camera transition" bounds
         this.checkCamBounds(this.player, this.cam);
 
         if(this.done == false){
@@ -171,6 +183,10 @@ class Play extends Phaser.Scene {
                 this.player.setVelocityX(0); 
                 this.sound.play('jump'); 
             }   
+        
+        
+        
+        
         } 
     }
     
@@ -186,6 +202,7 @@ class Play extends Phaser.Scene {
     }
 
     countup(){
+        //increases grandma's speed every 3 seconds 
         if(this.done == false){
             this.grandmaspeed += 15; //20, increase after F key is implemented 
         }   

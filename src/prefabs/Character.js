@@ -6,7 +6,6 @@ class Character extends Phaser.Physics.Arcade.Sprite{
         scene.physics.add.existing(this); 
         this.body.setCollideWorldBounds(true);
 
-        this.moveSpeed = 6; 
         
     } 
 
