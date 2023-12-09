@@ -159,7 +159,7 @@ class Play extends Phaser.Scene {
                 
                 
             }
-            //this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
+            this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
 
             //check function bounds 
             this.checkCamBounds(this.player, this.cameras.main); 
@@ -190,7 +190,8 @@ class Play extends Phaser.Scene {
                 } 
             } 
 
-            else if(Phaser.Input.Keyboard.JustDown(keyF) && this.fireability == true){
+            else if(Phaser.Input.Keyboard.JustDown(keyF) && this.fireability == true && this.fired > 0){
+                this.fired -= 1; 
                 if(this.direction == true){
                     this.player.anims.play('grab-gun-left'); 
                     this.bullet = this.physics.add.sprite(this.player.x+55, game.config.height-135, 'heart').setScale(0.25);
@@ -212,6 +213,7 @@ class Play extends Phaser.Scene {
                         console.log('????'); 
                         this.grandma.anims.play('grandma-hurt'); 
                         this.bullet.destroy(); 
+                        this.grandmaspeed -= 40; 
                         this.hit = true; 
                         
                     },null,this)
