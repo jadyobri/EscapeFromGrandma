@@ -171,6 +171,14 @@ class Load extends Phaser.Scene{
                 end: 2, 
             })
         })
+        this.anims.create({
+            key: 'grandma-hurt', 
+            frameRate: 5, 
+            frames: this.anims.generateFrameNumbers('grandma', {
+                start: 5, 
+                end: 7, 
+            })
+        })
 
         //animation for interacting with gun
         this.anims.create({

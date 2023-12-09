@@ -4,11 +4,18 @@ class Play extends Phaser.Scene {
     }
 
     create(){
+        //bounce sound 
+        //reached the level of ungrateful grandchild 
+        //kissing sound 
+
         //background music 
-        this.sound.play('background'); 
+        //this.sound.play('background'); 
 
         //initial setup 
         this.gameOver = false; 
+        this.fireability = false; 
+        this.hit = false; 
+
         this.mainscreen = this.add.tileSprite(0, 0, 3000, 600, 'allscenes').setOrigin(0, 0); 
         let inviswall = this.physics.add.sprite(game.config.width+600,game.config.height-60,'invisible');
 
@@ -29,6 +36,7 @@ class Play extends Phaser.Scene {
 
         //gun  
         this.gun = this.physics.add.sprite(800, game.config.height-200, 'gun').setScale(0.85);  
+        this.gun.setImmovable(true); 
         this.fired = 3; 
 
         //player 
@@ -75,6 +83,7 @@ class Play extends Phaser.Scene {
 
         //game over flag 
         this.done = false;
+        this.direction = true;
         
         //create cursor keys
         cursors = this.input.keyboard.createCursorKeys();
@@ -106,6 +115,7 @@ class Play extends Phaser.Scene {
 
     update(){
         //this.physics.moveToObject(this.grandma, this.player, 100);
+        
         this.physics.add.overlap(this.player, this.grandma,()=>{  
             this.player.setVelocity(0,0);
             this.grandma.setVelocity(0,0);
@@ -121,23 +131,9 @@ class Play extends Phaser.Scene {
         
         },null,this)
 
-        this.physics.add.overlap(this.player, this.gun,()=>{
-            //animations not playing in this overlap 
-            this.gun.anims.play('minus-guns'); 
-
-            if(this.direction == true){
-                this.player.anims.play('grab-gun-right'); 
-            }else{
-                this.player.anims.play('grab-gun-left'); 
-            }
-            //add text (3 shots left)
-
-        },null,this)
-
         //collision for the win screen 
         this.physics.add.overlap(this.player, this.rectangle,()=>{
             this.sound.play('click'); 
-            this.fireability = true; 
             this.player.setVelocity(0,0); 
             this.grandma.setVelocity(0,0); 
             if(this.done != true){
@@ -153,8 +149,17 @@ class Play extends Phaser.Scene {
         if(this.done == false){
             
             //grandma movement
+            if(this.hit == false){
             this.grandma.anims.play('grandma-walking-right', true); 
-            this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
+            } else{
+                this.grandma.anims.play('grandma-hurt');
+                this.time.addEvent({delay:1000, callback: ()=>{
+                    this.hit = false; 
+                }})
+                
+                
+            }
+            //this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
 
             //check function bounds 
             this.checkCamBounds(this.player, this.cameras.main); 
@@ -164,42 +169,62 @@ class Play extends Phaser.Scene {
                 this.player.setVelocityX(-160);
                 this.player.anims.play('running-right', true);
                 this.direction = false; 
+
+                if(this.player.x > 730 && this.player.x < 800){
+                    this.player.anims.play('grab-gun-right'); 
+                    this.fireability = true; 
+                }
+                
             }
+
             else if(cursors.right.isDown){
                 this.player.setVelocityX(160);
+                this.player.setDrag(150); 
+
                 this.player.anims.play('running-left', true);
                 this.direction = true; 
-            }
-            else
-            {
+                
+                if(this.player.x > 730 && this.player.x < 820){
+                    this.player.anims.play('grab-gun-left'); 
+                    this.fireability = true; 
+                } 
+            } 
+
+            else if(Phaser.Input.Keyboard.JustDown(keyF) && this.fireability == true){
                 if(this.direction == true){
-                    this.player.setVelocityX(0);
-                    this.player.anims.play('idle-left');
+                    this.player.anims.play('grab-gun-left'); 
+                    this.bullet = this.physics.add.sprite(this.player.x+55, game.config.height-135, 'heart').setScale(0.25);
+                    this.bullet.setVelocityX(1500); 
+
+                    this.physics.add.collider(this.bullet, this.rectangle, (bullet, rectangle) => {
+                        this.bullet.destroy(); 
+                    })
+                    this.time.addEvent({delay:1000, callback: ()=>{
+                        this.player.anims.play('idle-left'); 
+                    }})
                 } 
                 else{
-                    this.player.setVelocityX(0); 
-                    this.player.anims.play('idle-right'); 
+                    this.player.anims.play('grab-gun-right'); 
+                    this.bullet = this.physics.add.sprite(this.player.x-55, game.config.height-135, 'heart').setScale(0.25);
+                    this.bullet.setVelocityX(-1500); 
+
+                    this.physics.add.overlap(this.bullet, this.grandma,()=>{  
+                        console.log('????'); 
+                        this.grandma.anims.play('grandma-hurt'); 
+                        this.bullet.destroy(); 
+                        this.hit = true; 
+                        
+                    },null,this)
                 }
-            }
-            if(Phaser.Input.Keyboard.JustDown(cursors.up)&& this.player.body.touching.down){
-                this.player.setVelocityY(-250);
+            } 
+
+            if(Phaser.Input.Keyboard.JustDown(cursors.up) && this.player.body.touching.down){
+                this.player.setVelocityY(-270);
                 this.player.setVelocityX(0); 
                 this.sound.play('jump'); 
             }   
-            if(Phaser.Input.Keyboard.JustDown(keyF)){ //&& this.fired > 0 && this.fireability == true){ 
-                //not going into this 
-                //animations being overwritten D: 
-                console.log('hmmmmmm :O')
-                this.fired -= 1; 
-                if(this.direction == true){
-                    this.player.anims.play('gun-fire-right'); 
-                } else{
-                    this.player.anims.play('gun-fire-right'); 
-                }
-            }
-        
-        
-        
+            
+
         
         } 
     }

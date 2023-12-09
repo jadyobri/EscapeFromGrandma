@@ -31,4 +31,4 @@ let keyF; //key to fire
 let keySPACE; //key to start 
 
 let gameOver = false; 
-let playerDirection = 'right'
+let playerDirection = 'right'; 
