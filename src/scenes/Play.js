@@ -4,12 +4,14 @@ class Play extends Phaser.Scene {
     }
 
     create(){
+        //idle and shooting animations are getting overwritten by one another (not sure how to fix)
+
         //bounce sound 
         //reached the level of ungrateful grandchild 
         //kissing sound 
 
         //background music 
-        //this.sound.play('background'); 
+        this.sound.play('background'); 
 
         //initial setup 
         this.gameOver = false; 
@@ -152,7 +154,7 @@ class Play extends Phaser.Scene {
             if(this.hit == false){
             this.grandma.anims.play('grandma-walking-right', true); 
             } else{
-                this.grandma.anims.play('grandma-hurt');
+                this.grandma.anims.play('grandma-hurt', true);
                 this.time.addEvent({delay:1000, callback: ()=>{
                     this.hit = false; 
                 }})
@@ -224,10 +226,7 @@ class Play extends Phaser.Scene {
                 this.player.setVelocityY(-270);
                 this.player.setVelocityX(0); 
                 this.sound.play('jump'); 
-            }   
-            
-
-        
+            }           
         } 
     }
     

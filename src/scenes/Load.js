@@ -173,10 +173,10 @@ class Load extends Phaser.Scene{
         })
         this.anims.create({
             key: 'grandma-hurt', 
-            frameRate: 5, 
+            frameRate: 3, 
             frames: this.anims.generateFrameNumbers('grandma', {
                 start: 5, 
-                end: 7, 
+                end: 6, 
             })
         })
 
