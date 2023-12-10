@@ -64,6 +64,9 @@ class Play extends Phaser.Scene {
         this.grandma.setSize(this.grandma.width/2,this.grandma.height/2); 
         this.grandma.setOffset(this.grandma.width/6, this.grandma.height/2.5); 
 
+        //monster 
+        this.monster = this.physics.add.sprite(3, game.config.height-175, 'monsters').setScale(0.85); 
+
         //invisible wall 
         inviswall.setSize(game.config.width, inviswall.height);
         inviswall.setDisplaySize(game.config.width, inviswall.height);
@@ -85,8 +88,8 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.player, this.cloud3); 
 
         //game over flag 
-        this.done = false;
-        this.direction = true;
+        this.done = true;
+        this.direction = false;
         
         //create cursor keys
         cursors = this.input.keyboard.createCursorKeys();
@@ -113,6 +116,11 @@ class Play extends Phaser.Scene {
             callback: this.countup,
             callbackScope: this,
         }) 
+
+        this.monster.anims.play('monster-popping-out'); 
+        this.player.anims.play('startled-right').once('animationcomplete', ()=> {
+            this.done = false; 
+        })
 
 
 
@@ -152,19 +160,17 @@ class Play extends Phaser.Scene {
         this.checkCamBounds(this.player, this.cam);
 
         if(this.done == false){
-            
             //grandma movement
             if(this.hit == false){
-            this.grandma.anims.play('grandma-walking-right', true); 
+                this.grandma.anims.play('grandma-walking-right', true); 
             } else{
                 this.grandma.anims.play('grandma-hurt', true);
                 this.time.addEvent({delay:1000, callback: ()=>{
                     this.hit = false; 
-                }})
-                
-                
+                }})    
             }
-            this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
+            //move grandma towards character
+            //this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
 
             //check function bounds 
             this.checkCamBounds(this.player, this.cameras.main); 
@@ -184,7 +190,6 @@ class Play extends Phaser.Scene {
 
             else if(cursors.right.isDown){
                 this.player.setVelocityX(160);
-                this.player.setDrag(150); 
 
                 this.player.anims.play('running-left', true);
                 this.direction = true; 
@@ -197,11 +202,11 @@ class Play extends Phaser.Scene {
 
             else{
                 if(this.direction == true && this.shooting == false){
-                    this.player.anims.play('idle-left'); 
-                    
+                    this.player.setVelocityX(0); 
+                    this.player.anims.play('idle-left');  
                 }
-                
                 else if(this.direction == false && this.shooting == false) {
+                    this.player.setVelocityX(0); 
                     this.player.anims.play('idle-right'); 
                 }
 
@@ -239,35 +244,6 @@ class Play extends Phaser.Scene {
                     this.shooting = false; 
                 }) 
             }
-            /*else if(Phaser.Input.Keyboard.JustDown(keyF) && this.fireability == true && this.fired > 0){
-                this.fired -= 1; 
-                if(this.direction == true){
-                    this.player.anims.play('grab-gun-left'); 
-                    this.bullet = this.physics.add.sprite(this.player.x+55, game.config.height-135, 'heart').setScale(0.25);
-                    this.bullet.setVelocityX(1500); 
-
-                    this.physics.add.collider(this.bullet, this.rectangle, (bullet, rectangle) => {
-                        this.bullet.destroy(); 
-                    })
-                    this.time.addEvent({delay:1000, callback: ()=>{
-                        this.player.anims.play('idle-left'); 
-                    }})
-                } 
-                else{
-                    this.player.anims.play('grab-gun-right'); 
-                    this.bullet = this.physics.add.sprite(this.player.x-55, game.config.height-135, 'heart').setScale(0.25);
-                    this.bullet.setVelocityX(-1500); 
-
-                    this.physics.add.overlap(this.bullet, this.grandma,()=>{  
-                        console.log('????'); 
-                        this.grandma.anims.play('grandma-hurt'); 
-                        this.bullet.destroy(); 
-                        this.grandmaspeed -= 40; 
-                        this.hit = true; 
-                        
-                    },null,this)
-                }
-            } */ 
 
             if(Phaser.Input.Keyboard.JustDown(cursors.up) && this.player.body.touching.down){
                 this.player.setVelocityY(-270);

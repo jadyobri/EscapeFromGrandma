@@ -31,6 +31,11 @@ class Load extends Phaser.Scene{
             frameHeight: 96, 
         })
 
+        this.load.spritesheet('monsters', 'monsters.png', {
+            frameWidth: 120, 
+            frameHeight: 310, 
+        })
+
         //load audio 
         this.load.audio('jump', 'jumping.wav'); //Lefty_Studios
         this.load.audio('click', 'click.wav'); //credits listed in IC Endless Runner 
@@ -75,9 +80,9 @@ class Load extends Phaser.Scene{
         this.anims.create({ 
             key: 'startled-right', 
             frameRate: 3, 
+            repeat: 1,  
             frames: this.anims.generateFrameNumbers('character', {
-                start: 0, 
-                end: 3 
+                frames: [3, 0]
             }), 
         })
         this.anims.create({ 
@@ -202,6 +207,17 @@ class Load extends Phaser.Scene{
             frameRate: 3, 
             frames: this.anims.generateFrameNumbers('gun', {
                 start: 1, 
+                end: 1, 
+            })
+        })
+
+        //monster animation (at the beginning)
+        this.anims.create({
+            key: 'monster-popping-out', 
+            frameRate: 3, 
+            repeat: 2, 
+            frames: this.anims.generateFrameNumbers('monsters', {
+                start: 0, 
                 end: 1, 
             })
         })
