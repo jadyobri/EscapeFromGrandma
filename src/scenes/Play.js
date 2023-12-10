@@ -24,7 +24,7 @@ class Play extends Phaser.Scene {
         this.table = this.physics.add.sprite(1500, game.config.height-125, 'table'); 
         this.chair1 = this.physics.add.sprite(1350, game.config.height-125, 'chair').setScale(0.75); 
         this.chair2 = this.physics.add.sprite(1750, game.config.height-125, 'chair').setScale(0.75); //chair 2 is fine 
-        this.lamp = this.physics.add.sprite(1550, 10, 'lamp'); 
+        this.lamp = this.physics.add.sprite(1530, 20, 'lamp'); 
         this.rock1 = this.physics.add.sprite(2300, game.config.height-90, 'rock').setScale(0.5); 
         this.rock2 = this.physics.add.sprite(2759, game.config.height-90, 'rock').setScale(0.75); 
         this.cloud1 = this.physics.add.sprite(2500, 250, 'clouds').setScale(3); 
@@ -32,8 +32,10 @@ class Play extends Phaser.Scene {
         this.cloud3 = this.physics.add.sprite(2222, 2505, 'clouds').setScale(3); 
         this.chair2.setFlipX(true); 
         this.table.setSize(170, 50);
-        this.chair1.setSize(75, 75); //45
-        this.chair2.setSize(75, 75); //45 
+        this.chair1.setSize(75, 35); //45
+        this.chair2.setSize(75, 35); //45 
+
+        
 
         //gun  
         this.gun = this.physics.add.sprite(800, game.config.height-200, 'gun').setScale(0.85);  
@@ -63,7 +65,18 @@ class Play extends Phaser.Scene {
         this.grandma.setOffset(this.grandma.width/6, this.grandma.height/2.5); 
 
         //monster 
-        this.monster = this.physics.add.sprite(3, game.config.height-175, 'monsters').setScale(0.85); 
+        this.monster = this.physics.add.sprite(15, game.config.height-175, 'monsters').setScale(0.85); 
+
+        //chair legs
+        this.chairleg1 = this.add.rectangle(1327, 480, 14, 100, 0xFFFFFF); 
+        this.physics.add.existing(this.chairleg1);
+        this.chairleg1.body.setImmovable(true); 
+        this.chairleg1.setVisible(false);
+        
+        this.chairleg2 = this.add.rectangle(1775, 480, 14, 100, 0xFFFFFF); 
+        this.physics.add.existing(this.chairleg2);
+        this.chairleg2.body.setImmovable(true); 
+        this.chairleg2.setVisible(false);
 
         //invisible wall 
         inviswall.setSize(game.config.width, inviswall.height);
@@ -76,7 +89,6 @@ class Play extends Phaser.Scene {
         this.physics.add.existing(this.rectangle); 
         this.rectangle.setVisible(false);
 
-        
         //colliders 
         this.physics.add.collider(this.player, inviswall);
         this.physics.add.collider(this.grandma, inviswall);
@@ -85,7 +97,9 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.player, this.chair2); 
         this.physics.add.collider(this.player, this.rock1); 
         this.physics.add.collider(this.player, this.rock2); 
-        this.physics.add.collider(this.player, this.cloud3); 
+        this.physics.add.collider(this.player, this.cloud3);
+        this.physics.add.collider(this.player, this.chairleg1); 
+        this.physics.add.collider(this.player, this.chairleg2); 
 
         //game over flag 
         this.done = true;
@@ -124,12 +138,9 @@ class Play extends Phaser.Scene {
 
         this.screen = this.physics.add.sprite(0, 0, 'screen').setOrigin(0, 0);  
         this.screen.setScrollFactor(0); 
-
     } 
 
     update(){
-        //this.physics.moveToObject(this.grandma, this.player, 100);
-        
         this.physics.add.overlap(this.player, this.grandma,()=>{  
             this.player.setVelocity(0,0);
             this.grandma.setVelocity(0,0);
@@ -160,6 +171,7 @@ class Play extends Phaser.Scene {
         //checks position of the player and camera in comparison to the "camera transition" bounds
         this.checkCamBounds(this.player, this.cam);
 
+        //game is not yet over 
         if(this.done == false){
             //grandma movement
             if(this.hit == false){
@@ -170,9 +182,9 @@ class Play extends Phaser.Scene {
                     this.hit = false; 
                 }})    
             }
+
             //move grandma towards character
             this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
-            //
 
             //check function bounds 
             this.checkCamBounds(this.player, this.cameras.main); 
@@ -187,7 +199,6 @@ class Play extends Phaser.Scene {
                     this.player.anims.play('grab-gun-right'); 
                     this.fireability = true; 
                 }
-                
             }
 
             else if(cursors.right.isDown){
