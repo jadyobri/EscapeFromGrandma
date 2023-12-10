@@ -36,6 +36,8 @@ class Load extends Phaser.Scene{
             frameHeight: 310, 
         })
 
+        this.load.image('screen', 'Screeneffect.png'); 
+
         //load audio 
         this.load.audio('jump', 'jumping.wav'); //Lefty_Studios
         this.load.audio('click', 'click.wav'); //credits listed in IC Endless Runner 

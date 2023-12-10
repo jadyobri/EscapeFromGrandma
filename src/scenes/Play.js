@@ -4,8 +4,6 @@ class Play extends Phaser.Scene {
     }
 
     create(){
-        //idle and shooting animations are getting overwritten by one another (not sure how to fix)
-
         //bounce sound 
         //reached the level of ungrateful grandchild 
         //kissing sound 
@@ -31,7 +29,7 @@ class Play extends Phaser.Scene {
         this.rock2 = this.physics.add.sprite(2759, game.config.height-90, 'rock').setScale(0.75); 
         this.cloud1 = this.physics.add.sprite(2500, 250, 'clouds').setScale(3); 
         this.cloud2 = this.physics.add.sprite(2700, 100, 'clouds').setScale(3); 
-        this.cloud3 = this.physics.add.sprite(2222, 275, 'clouds').setScale(3); 
+        this.cloud3 = this.physics.add.sprite(2222, 2505, 'clouds').setScale(3); 
         this.chair2.setFlipX(true); 
         this.table.setSize(170, 50);
         this.chair1.setSize(75, 75); //45
@@ -76,6 +74,8 @@ class Play extends Phaser.Scene {
         //win condition collider 
         this.rectangle = this.add.rectangle(2950, 0, 50, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
         this.physics.add.existing(this.rectangle); 
+        this.rectangle.setVisible(false);
+
         
         //colliders 
         this.physics.add.collider(this.player, inviswall);
@@ -122,7 +122,8 @@ class Play extends Phaser.Scene {
             this.done = false; 
         })
 
-
+        this.screen = this.physics.add.sprite(0, 0, 'screen').setOrigin(0, 0);  
+        this.screen.setScrollFactor(0); 
 
     } 
 
@@ -170,7 +171,8 @@ class Play extends Phaser.Scene {
                 }})    
             }
             //move grandma towards character
-            //this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
+            this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
+            //
 
             //check function bounds 
             this.checkCamBounds(this.player, this.cameras.main); 
@@ -190,7 +192,6 @@ class Play extends Phaser.Scene {
 
             else if(cursors.right.isDown){
                 this.player.setVelocityX(160);
-
                 this.player.anims.play('running-left', true);
                 this.direction = true; 
                 
@@ -212,13 +213,14 @@ class Play extends Phaser.Scene {
 
             }
 
-            if(Phaser.Input.Keyboard.JustDown(keyF)){
-                console.log('????')
+            if(Phaser.Input.Keyboard.JustDown(keyF) && this.fireability == true && this.fired > 0){
                 this.shooting = true; 
+                console.log(this.player.y); 
+                this.fired -= 1; 
 
                 if(this.direction == true){
                     this.player.anims.play('grab-gun-left');   //change y to player height lol 
-                    this.bullet = this.physics.add.sprite(this.player.x+55, game.config.height-135, 'heart').setScale(0.25);
+                    this.bullet = this.physics.add.sprite(this.player.x+55, this.player.y+13, 'heart').setScale(0.25);
                     this.bullet.setVelocityX(1500); 
 
                     this.physics.add.collider(this.bullet, this.rectangle, (bullet, rectangle) => {
@@ -226,14 +228,13 @@ class Play extends Phaser.Scene {
                     })
                 } else {
                     this.player.anims.play('grab-gun-right');  
-                    this.bullet = this.physics.add.sprite(this.player.x-55, game.config.height-135, 'heart').setScale(0.25);
+                    this.bullet = this.physics.add.sprite(this.player.x-55, this.player.y+13, 'heart').setScale(0.25);
                     this.bullet.setVelocityX(-1500); 
 
                     this.physics.add.overlap(this.bullet, this.grandma,()=>{  
-                        console.log('????'); 
                         this.grandma.anims.play('grandma-hurt'); 
                         this.bullet.destroy(); 
-                        this.grandmaspeed -= 40; 
+                        this.grandmaspeed -= 20; 
                         this.hit = true; 
                         
                     },null,this)
@@ -267,7 +268,7 @@ class Play extends Phaser.Scene {
     countup(){
         //increases grandma's speed every 3 seconds 
         if(this.done == false){
-            this.grandmaspeed += 15; //20, increase after F key is implemented 
+            this.grandmaspeed += 20; //20, increase after F key is implemented 
         }   
     }
 
