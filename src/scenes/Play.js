@@ -89,6 +89,23 @@ class Play extends Phaser.Scene {
         this.physics.add.existing(this.rectangle); 
         this.rectangle.setVisible(false);
 
+        //arrow keys and F key 
+        this.leftKey = this.add.sprite(100, 100, 'arrowkey'); 
+        this.downKey = this.add.sprite(132, 100, 'arrowkey'); 
+        this.rightKey = this.add.sprite(164, 100, 'arrowkey'); 
+        this.upKey = this.add.sprite(132, 68, 'arrowkey'); 
+        this.upKey.rotation = Math.PI/2; 
+        this.downKey.rotation = Math.PI/2*3; 
+        this.rightKey.rotation = Math.PI; 
+        this.fkey = this.add.sprite(700, 100, 'fkey'); 
+        this.downKey.tint = 0x333333
+
+        this.leftKey.setScrollFactor(0); 
+        this.rightKey.setScrollFactor(0); 
+        this.upKey.setScrollFactor(0); 
+        this.downKey.setScrollFactor(0); 
+        this.fkey.setScrollFactor(0); 
+
         //colliders 
         this.physics.add.collider(this.player, inviswall);
         this.physics.add.collider(this.grandma, inviswall);
@@ -194,6 +211,7 @@ class Play extends Phaser.Scene {
                 this.player.setVelocityX(-160);
                 this.player.anims.play('running-right', true);
                 this.direction = false; 
+                this.leftKey.tint = 0xFACADE
 
                 if(this.player.x > 730 && this.player.x < 800){
                     this.player.anims.play('grab-gun-right'); 
@@ -205,6 +223,7 @@ class Play extends Phaser.Scene {
                 this.player.setVelocityX(160);
                 this.player.anims.play('running-left', true);
                 this.direction = true; 
+                this.rightKey.tint = 0xFACADE; 
                 
                 if(this.player.x > 730 && this.player.x < 820){
                     this.player.anims.play('grab-gun-left'); 
@@ -216,10 +235,12 @@ class Play extends Phaser.Scene {
                 if(this.direction == true && this.shooting == false){
                     this.player.setVelocityX(0); 
                     this.player.anims.play('idle-left');  
+                    this.rightKey.tint = 0xFFFFFF; 
                 }
                 else if(this.direction == false && this.shooting == false) {
                     this.player.setVelocityX(0); 
                     this.player.anims.play('idle-right'); 
+                    this.leftKey.tint = 0xFFFFFF; 
                 }
 
             }
@@ -228,6 +249,7 @@ class Play extends Phaser.Scene {
                 this.shooting = true; 
                 console.log(this.player.y); 
                 this.fired -= 1; 
+                this.fkey.tint = 0xFACADE; 
 
                 if(this.direction == true){
                     this.player.anims.play('grab-gun-left');   //change y to player height lol 
@@ -251,16 +273,24 @@ class Play extends Phaser.Scene {
                     },null,this)
                 }
 
-
                 this.player.once('animationcomplete', ()=> { //delay timer 
                     this.shooting = false; 
                 }) 
+            } else{
+                this.fkey.tint = 0xFFFFFF; 
+            }
+
+            if(this.fired == 0){
+                this.fkey.tint = 0x333333; 
             }
 
             if(Phaser.Input.Keyboard.JustDown(cursors.up) && this.player.body.touching.down){
+                this.upKey.tint = 0xFACADE
                 this.player.setVelocityY(-270);
                 this.player.setVelocityX(0); 
                 this.sound.play('jump'); 
+            }else{
+                this.upKey.tint = 0xFFFFFF; 
             }           
         } 
     }

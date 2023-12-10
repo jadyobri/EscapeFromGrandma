@@ -37,6 +37,8 @@ class Load extends Phaser.Scene{
         })
 
         this.load.image('screen', 'Screeneffect.png'); 
+        this.load.image('arrowkey', 'Arrowkey.png'); 
+        this.load.image('fkey', 'Fkey.png'); 
 
         //load audio 
         this.load.audio('jump', 'jumping.wav'); //Lefty_Studios
@@ -44,6 +46,8 @@ class Load extends Phaser.Scene{
         this.load.audio('restart', 'restart.wav'); //will add credits at a later date 
         this.load.audio('background', 'arcademusic.mp3'); //music by Luca Di Alessandro (Pixabay)
 
+        this.load.bitmapFont('font', 'CandyBeans.png', 'CandyBeans.xml'); 
+    
     } 
 
     create(){

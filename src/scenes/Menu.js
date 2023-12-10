@@ -11,8 +11,8 @@ class Menu extends Phaser.Scene {
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); 
 
         //adding text for the menu screen 
-        this.menucontrolsText = this.add.text(250, game.config.height-90, 'Use cursor keys to move', { fontSize: '25px', fill: '#fff' });
-        this.menustartText =  this.add.text(235, game.config.height-60, 'Press Space bar to start', { fontSize: '25px', fill: '#fff' });
+        this.menucontrolsText = this.add.bitmapText(285, game.config.height-120, 'font', 'Press T for tutorial').setScale(0.35); 
+        this.menustartText =  this.add.bitmapText(220, game.config.height-90, 'font', 'Press Space bar to start').setScale(0.45); 
     }
 
     update(){
