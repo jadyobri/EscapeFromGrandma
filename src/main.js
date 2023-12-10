@@ -1,3 +1,5 @@
+//Major phaser components: timer events, camera movement, particle emitter, animation manager, bitmap text (pending), physics system
+
 'use strict'
 
 let config = {

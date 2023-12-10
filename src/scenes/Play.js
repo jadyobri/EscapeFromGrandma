@@ -11,12 +11,13 @@ class Play extends Phaser.Scene {
         //kissing sound 
 
         //background music 
-        this.sound.play('background'); 
+        //this.sound.play('background'); 
 
         //initial setup 
         this.gameOver = false; 
         this.fireability = false; 
         this.hit = false; 
+        this.shooting = false; 
 
         this.mainscreen = this.add.tileSprite(0, 0, 3000, 600, 'allscenes').setOrigin(0, 0); 
         let inviswall = this.physics.add.sprite(game.config.width+600,game.config.height-60,'invisible');
@@ -113,6 +114,8 @@ class Play extends Phaser.Scene {
             callbackScope: this,
         }) 
 
+
+
     } 
 
     update(){
@@ -192,7 +195,51 @@ class Play extends Phaser.Scene {
                 } 
             } 
 
-            else if(Phaser.Input.Keyboard.JustDown(keyF) && this.fireability == true && this.fired > 0){
+            else{
+                if(this.direction == true && this.shooting == false){
+                    this.player.anims.play('idle-left'); 
+                    
+                }
+                
+                else if(this.direction == false && this.shooting == false) {
+                    this.player.anims.play('idle-right'); 
+                }
+
+            }
+
+            if(Phaser.Input.Keyboard.JustDown(keyF)){
+                console.log('????')
+                this.shooting = true; 
+
+                if(this.direction == true){
+                    this.player.anims.play('grab-gun-left');   //change y to player height lol 
+                    this.bullet = this.physics.add.sprite(this.player.x+55, game.config.height-135, 'heart').setScale(0.25);
+                    this.bullet.setVelocityX(1500); 
+
+                    this.physics.add.collider(this.bullet, this.rectangle, (bullet, rectangle) => {
+                        this.bullet.destroy(); 
+                    })
+                } else {
+                    this.player.anims.play('grab-gun-right');  
+                    this.bullet = this.physics.add.sprite(this.player.x-55, game.config.height-135, 'heart').setScale(0.25);
+                    this.bullet.setVelocityX(-1500); 
+
+                    this.physics.add.overlap(this.bullet, this.grandma,()=>{  
+                        console.log('????'); 
+                        this.grandma.anims.play('grandma-hurt'); 
+                        this.bullet.destroy(); 
+                        this.grandmaspeed -= 40; 
+                        this.hit = true; 
+                        
+                    },null,this)
+                }
+
+
+                this.player.once('animationcomplete', ()=> { //delay timer 
+                    this.shooting = false; 
+                }) 
+            }
+            /*else if(Phaser.Input.Keyboard.JustDown(keyF) && this.fireability == true && this.fired > 0){
                 this.fired -= 1; 
                 if(this.direction == true){
                     this.player.anims.play('grab-gun-left'); 
@@ -220,7 +267,7 @@ class Play extends Phaser.Scene {
                         
                     },null,this)
                 }
-            } 
+            } */ 
 
             if(Phaser.Input.Keyboard.JustDown(cursors.up) && this.player.body.touching.down){
                 this.player.setVelocityY(-270);
