@@ -9,7 +9,7 @@ let config = {
     }, 
     width: 800, 
     height: 600, 
-    scene: [Load, Menu, Tutorial, Play, GameOver, Win], //game scenes 
+    scene: [Load, Menu, Tutorial, Play, GameOver, Win, Credits], //game scenes 
     physics: {
         default: 'arcade',
         arcade: {
@@ -30,6 +30,8 @@ let keyT; //key for tutorial
 let keyM; //key for menu 
 let keyR; //key to restart  
 let keyF; //key to fire
+let keyB; //key to return back from credits
+let keyC; //key for credits 
 let keySPACE; //key to start 
 
 let gameOver = false; 

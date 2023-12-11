@@ -47,7 +47,6 @@ class Load extends Phaser.Scene{
         this.load.audio('background', 'arcademusic.mp3'); //music by Luca Di Alessandro (Pixabay)
 
         this.load.bitmapFont('font', 'CandyBeans.png', 'CandyBeans.xml'); 
-    
     } 
 
     create(){
@@ -176,10 +175,9 @@ class Load extends Phaser.Scene{
         })
         this.anims.create({
             key: 'grandma-kissing-right', 
-            frameRate: 3, 
+            frameRate: 3,  
             frames: this.anims.generateFrameNumbers('grandma', {
-                start: 1, 
-                end: 2, 
+                frames: [3, 2, 1]
             })
         })
         this.anims.create({

@@ -32,11 +32,9 @@ class Play extends Phaser.Scene {
         this.cloud3 = this.physics.add.sprite(2222, 2505, 'clouds').setScale(3); 
         this.chair2.setFlipX(true); 
         this.table.setSize(170, 50);
-        this.chair1.setSize(75, 35); //45
-        this.chair2.setSize(75, 35); //45 
-
+        this.chair1.setSize(75, 35); 
+        this.chair2.setSize(75, 35); 
         
-
         //gun  
         this.gun = this.physics.add.sprite(800, game.config.height-200, 'gun').setScale(0.85);  
         this.gun.setImmovable(true); 
@@ -98,8 +96,10 @@ class Play extends Phaser.Scene {
         this.downKey.rotation = Math.PI/2*3; 
         this.rightKey.rotation = Math.PI; 
         this.fkey = this.add.sprite(700, 100, 'fkey'); 
-        this.downKey.tint = 0x333333
+        this.downKey.tint = 0x333333; 
+        this.fkey.tint = 0x333333;
 
+        //allows arrow keys to remain in the "same place" as the camera moves alongside the player 
         this.leftKey.setScrollFactor(0); 
         this.rightKey.setScrollFactor(0); 
         this.upKey.setScrollFactor(0); 
@@ -149,6 +149,7 @@ class Play extends Phaser.Scene {
         }) 
 
         this.monster.anims.play('monster-popping-out'); 
+        this.grandma.anims.play('grandma-kissing-right', true); 
         this.player.anims.play('startled-right').once('animationcomplete', ()=> {
             this.done = false; 
         })
@@ -158,6 +159,8 @@ class Play extends Phaser.Scene {
     } 
 
     update(){
+
+        //overlap between the player and grandma (game over)
         this.physics.add.overlap(this.player, this.grandma,()=>{  
             this.player.setVelocity(0,0);
             this.grandma.setVelocity(0,0);
@@ -228,6 +231,7 @@ class Play extends Phaser.Scene {
                 if(this.player.x > 730 && this.player.x < 820){
                     this.player.anims.play('grab-gun-left'); 
                     this.fireability = true; 
+                    this.fkey.tint = 0xFFFFFF; 
                 } 
             } 
 
@@ -267,7 +271,7 @@ class Play extends Phaser.Scene {
                     this.physics.add.overlap(this.bullet, this.grandma,()=>{  
                         this.grandma.anims.play('grandma-hurt'); 
                         this.bullet.destroy(); 
-                        this.grandmaspeed -= 20; 
+                        this.grandmaspeed -= 25; 
                         this.hit = true; 
                         
                     },null,this)
@@ -276,7 +280,8 @@ class Play extends Phaser.Scene {
                 this.player.once('animationcomplete', ()=> { //delay timer 
                     this.shooting = false; 
                 }) 
-            } else{
+            } 
+            else if(this.fireability == true && this.fired > 0){
                 this.fkey.tint = 0xFFFFFF; 
             }
 
