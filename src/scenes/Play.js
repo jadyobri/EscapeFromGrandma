@@ -155,6 +155,9 @@ class Play extends Phaser.Scene {
 
         this.screen = this.physics.add.sprite(0, 0, 'screen').setOrigin(0, 0);  
         this.screen.setScrollFactor(0); 
+
+        //stun factor
+        this.stun = false;
     } 
 
     update(){
@@ -174,6 +177,7 @@ class Play extends Phaser.Scene {
             }
         
         },null,this)
+        
 
         //collision for the win screen 
         this.physics.add.overlap(this.player, this.rectangle,()=>{
@@ -203,7 +207,9 @@ class Play extends Phaser.Scene {
             }
 
             //move grandma towards character
+            if(this.stun == false){
             this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
+            }
 
             //check function bounds 
             this.checkCamBounds(this.player, this.cameras.main); 
@@ -269,7 +275,13 @@ class Play extends Phaser.Scene {
                     this.physics.add.overlap(this.bullet, this.grandma,()=>{  
                         this.grandma.anims.play('grandma-hurt'); 
                         this.bullet.destroy(); 
-                        this.grandmaspeed -= 25; 
+                        //this.grandmaspeed -= 25;
+                        this.grandma.setVelocity(0,0);
+                        this.stun = true;
+                        this.time.addEvent({delay:1000, callback: ()=>{
+                            this.stun = false; 
+                        }}) 
+                        
                         this.hit = true; 
                         
                     },null,this)
@@ -311,8 +323,10 @@ class Play extends Phaser.Scene {
 
     countup(){
         //increases grandma's speed every 3 seconds 
-        if(this.done == false){
+        if(this.done == false && this.stun == false){
+            //this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
             this.grandmaspeed += 20; //20, increase after F key is implemented 
+            
         }   
     }
 
