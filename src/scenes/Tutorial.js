@@ -55,6 +55,7 @@ class Tutorial extends Phaser.Scene {
     update(){
         //start menu scene 
         if (Phaser.Input.Keyboard.JustDown(keyM)) {
+            this.sound.play('click'); 
             this.scene.start('menuScene');   
         } 
     }
