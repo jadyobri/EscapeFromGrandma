@@ -83,7 +83,7 @@ class Play extends Phaser.Scene {
         inviswall.setVisible(false);
 
         //win condition collider 
-        this.rectangle = this.add.rectangle(2950, 0, 50, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
+        this.rectangle = this.add.rectangle(2950, 0, 50, game.config.height, 0xFACADE).setOrigin(0 ,0);
         this.physics.add.existing(this.rectangle); 
         this.rectangle.setVisible(false);
 
@@ -114,7 +114,6 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.player, this.chair2); 
         this.physics.add.collider(this.player, this.rock1); 
         this.physics.add.collider(this.player, this.rock2); 
-        this.physics.add.collider(this.player, this.cloud3);
         this.physics.add.collider(this.player, this.chairleg1); 
         this.physics.add.collider(this.player, this.chairleg2); 
 
@@ -127,7 +126,7 @@ class Play extends Phaser.Scene {
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //
-        this.physics.world.setBounds(0, 0, 3000, 600); 
+        this.physics.world.setBounds(0, 0, 3100, 600); 
 
         //camera movement 
         this.cam = this.cameras.main; 
@@ -260,9 +259,6 @@ class Play extends Phaser.Scene {
                     this.bullet = this.physics.add.sprite(this.player.x+55, this.player.y+13, 'heart').setScale(0.25);
                     this.bullet.setVelocityX(1500); 
 
-                    this.physics.add.collider(this.bullet, this.rectangle, (bullet, rectangle) => {
-                        this.bullet.destroy(); 
-                    })
                 } else {
                     this.player.anims.play('grab-gun-right');  
                     this.bullet = this.physics.add.sprite(this.player.x-55, this.player.y+13, 'heart').setScale(0.25);
