@@ -11,6 +11,7 @@ class Credits extends Phaser.Scene {
         //adding keys for going back to game over screen 
         keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
 
+        //adding text
         this.artcredits = this.add.bitmapText(200, game.config.height-475, 'font', 'Art Assets by Isha Chury').setScale(0.37);
         this.bckcredit = this.add.bitmapText(200, game.config.height-425, 'font', 'Background Music by Luca Di Alessandro').setScale(0.37);
         this.jumpcredit = this.add.bitmapText(200, game.config.height-375, 'font', 'Jump SFX by Lefty_Studios').setScale(0.37);

@@ -45,6 +45,7 @@ class Load extends Phaser.Scene{
         this.load.audio('click', 'click.wav'); //credits listed in IC Endless Runner 
         this.load.audio('restart', 'restart.wav'); //will add credits at a later date 
         this.load.audio('background', 'arcademusic.mp3'); //music by Luca Di Alessandro (Pixabay)
+        this.load.audio('gunshot', 'gunshot.mp3'); 
 
         this.load.bitmapFont('font', 'CandyBeans.png', 'CandyBeans.xml'); 
     } 

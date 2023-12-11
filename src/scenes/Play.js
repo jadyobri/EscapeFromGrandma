@@ -252,6 +252,7 @@ class Play extends Phaser.Scene {
                 this.shooting = true; 
                 console.log(this.player.y); 
                 this.fired -= 1; 
+                this.sound.play('gunshot'); 
                 this.fkey.tint = 0xFACADE; 
 
                 if(this.direction == true){
@@ -260,6 +261,7 @@ class Play extends Phaser.Scene {
                     this.bullet.setVelocityX(1500); 
 
                 } else {
+                    
                     this.player.anims.play('grab-gun-right');  
                     this.bullet = this.physics.add.sprite(this.player.x-55, this.player.y+13, 'heart').setScale(0.25);
                     this.bullet.setVelocityX(-1500); 
