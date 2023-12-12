@@ -42,9 +42,10 @@ class Play extends Phaser.Scene {
 
         //player 
         this.player = this.physics.add.sprite(game.config.width/2, game.config.height-150, 'character').setScale(1.5);
+        //this.player.setSize(this.player.width/3,this.player.height/3);
         this.player.setFlipX(true); 
         this.player.setCollideWorldBounds(true); 
-        this.player.setSize(50,85); 
+        this.player.setSize(50,70); 
         
         //set obstacles as immovable 
         this.table.setImmovable(true);
@@ -137,7 +138,12 @@ class Play extends Phaser.Scene {
         this.player.setGravityY(300); 
 
         //grandma's speed 
-        this.grandmaspeed = 100; 
+        //if(hardmode == false){
+        this.grandmaspeed = 100;
+        //}
+        // else if(hardmode == true){
+        //     this.grandmaspeed = 300;
+        // }
 
         //timers (increasing grandma's speed)
         this.timedEvent = this.time.addEvent({
@@ -322,10 +328,16 @@ class Play extends Phaser.Scene {
     }
 
     countup(){
+        //console.log(hardmode);
         //increases grandma's speed every 3 seconds 
         if(this.done == false && this.stun == false){
+            if(hardmode==false){
             //this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
             this.grandmaspeed += 20; //20, increase after F key is implemented 
+            }
+            else if(hardmode == true){
+                this.grandmaspeed+=40;
+            }
             
         }   
     }
