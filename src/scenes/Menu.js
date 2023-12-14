@@ -30,6 +30,7 @@ class Menu extends Phaser.Scene {
     update(){
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
             this.sound.play('click'); 
+            hardmode = false;
             this.scene.start('playScene'); 
         }
         if(Phaser.Input.Keyboard.JustDown(keyT)){

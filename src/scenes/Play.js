@@ -37,7 +37,17 @@ class Play extends Phaser.Scene {
         //gun  
         this.gun = this.physics.add.sprite(800, game.config.height-200, 'gun').setScale(0.85);  
         this.gun.setImmovable(true); 
-        this.fired = 3; 
+        this.fired = 6;
+        if(hardmode == true){
+            this.fired = 4;
+        }
+        else{
+            this.fired = 6;
+        }
+        // this.maxfire = 6;
+        // if(hardmode == true){
+        //     this.maxfire = 4;
+        // } 
 
         //player 
         this.player = this.physics.add.sprite(game.config.width/2, game.config.height-150, 'character').setScale(1.5);
