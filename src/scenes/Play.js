@@ -222,6 +222,7 @@ class Play extends Phaser.Scene {
 
         this.physics.add.overlap(this.player, this.blob1, ()=>{
             this.scene.start('gameOverScene');  
+            
         })
 
         this.physics.add.overlap(this.blob1, this.bullet,()=>{  
