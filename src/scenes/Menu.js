@@ -19,10 +19,9 @@ class Menu extends Phaser.Scene {
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER); 
 
         //adding text for the menu screen 
-        this.menucontrolsText = this.add.bitmapText(285, game.config.height-120, 'font', 'Press T for tutorial').setScale(0.35); 
-        this.menustartText =  this.add.bitmapText(220, game.config.height-90, 'font', 'Press Space bar to start').setScale(0.45);
-        this.menustartHard = this.add.bitmapText(220, game.config.height-60, 'font', 'Press Enter for hard mode').setScale(0.45);
-        //this.hardmode = false;
+        this.menucontrolsText = this.add.bitmapText(285, game.config.height-130, 'font', 'Press T for tutorial').setScale(0.35); 
+        this.menustartText =  this.add.bitmapText(245, game.config.height-100, 'font', 'Press Space bar to start').setScale(0.37);
+        this.menustartHard = this.add.bitmapText(245, game.config.height-65, 'font', 'Press Enter for hard mode').setScale(0.37);
         this.screen = this.physics.add.sprite(0, 0, 'screen').setOrigin(0, 0);  
 
     }

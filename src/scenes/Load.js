@@ -13,11 +13,17 @@ class Load extends Phaser.Scene{
         this.load.image('lamp', 'lamp.png'); 
         this.load.image('rock', 'rock.png'); 
         this.load.image('heart', 'Heart.png'); 
+        this.load.image('blob', 'blob.png'); 
         
         this.load.spritesheet('gun', 'Gun.png', {
             frameWidth: 186, 
             frameHeight: 103
         })
+
+        this.load.spritesheet('explosion', 'Birb-explosion.png', {
+            frameWidth: 64, 
+            frameHeight: 64, 
+        });
 
         this.load.spritesheet('character', 'FinalUngratefulgrandchild.png', {
             frameWidth: 95, 
@@ -26,6 +32,7 @@ class Load extends Phaser.Scene{
 
         this.load.image('invisible', "one_way_wall.png");
         this.load.image('allscenes', 'Scenes.png'); 
+        
         this.load.spritesheet('grandma', 'FinalEvilgrandma.png', {
             frameWidth: 95, 
             frameHeight: 96, 
@@ -51,6 +58,13 @@ class Load extends Phaser.Scene{
     } 
 
     create(){
+        this.anims.create({
+            key: 'explode', 
+            frameRate: 8, 
+            frames: this.anims.generateFrameNumbers('explosion', {
+                frames: [0, 1, 2, 3, 4, 5, 6, 7, 0]
+            }), 
+        })
         //player animations  
         this.anims.create({ 
             key: 'running-left', 

@@ -36,8 +36,9 @@ class Tutorial extends Phaser.Scene {
         this.fKey = this.add.bitmapText(250, game.config.height-300, 'font', 'Use F key to fire').setScale(0.37)
         this.gunwarning = this.add.bitmapText(250, game.config.height-265, 'font', 'You can fire a total of 3 times').setScale(0.37); 
         this.gunwarning2 = this.add.bitmapText(250, game.config.height-240, 'font', 'after grabbing the gun').setScale(0.37); 
+        this.keywarning = this.add.bitmapText(250, game.config.height-200, 'font', 'Collect all 3 keys to escape!').setScale(0.37); 
         
-        const warning = this.add.bitmapText(180, game.config.height-180, 'font', 'Avoid Grandma at all costs!').setScale(0.37);
+        const warning = this.add.bitmapText(140, game.config.height-140, 'font', 'Avoid Grandma at all costs!').setScale(0.37);
         const fx1 = warning.postFX.addGlow(0xFACADE, 0, 0, false, 0.1, 14);
 
         this.tweens.add({
