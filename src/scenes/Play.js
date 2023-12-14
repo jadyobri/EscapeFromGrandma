@@ -113,16 +113,19 @@ class Play extends Phaser.Scene {
         this.blob1.setVelocityY(160); //130 
         this.blob1.setGravityY(90); 
         this.blob1.setBounce(1); 
+        this.blob1.setPushable(false); 
 
         this.blob2 = this.physics.add.sprite(1825, game.config.height-150, 'blob'); 
         this.blob2.setVelocityY(160); //130 
         this.blob2.setGravityY(90); 
         this.blob2.setBounce(1); 
+        this.blob2.setPushable(false); 
 
         this.blob3 = this.physics.add.sprite(2525, game.config.height-150, 'blob'); 
         this.blob3.setVelocityY(160); //130 
         this.blob3.setGravityY(90); 
         this.blob3.setBounce(1); 
+        this.blob3.setPushable(false); 
 
         this.boom = this.add.sprite(this.blob1.x, this.blob1.y, 'explosion'); 
         this.boom2 = this.add.sprite(this.blob2.x, this.blob2.y, 'explosion'); 
@@ -141,6 +144,16 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.blob1, inviswall); 
         this.physics.add.collider(this.blob2, inviswall); 
         this.physics.add.collider(this.blob3, inviswall); 
+
+        this.physics.add.collider(this.player, this.blob1, ()=> {
+            this.scene.start('gameOverScene'); 
+        });
+        this.physics.add.collider(this.player, this.blob2, ()=> {
+            this.scene.start('gameOverScene'); 
+        });
+        this.physics.add.collider(this.player, this.blob3, ()=> {
+            this.scene.start('gameOverScene'); 
+        }); 
         
 
         //game over flag 
@@ -220,17 +233,11 @@ class Play extends Phaser.Scene {
             },null,this)
         } 
 
-        this.physics.add.overlap(this.player, this.blob1, ()=>{
-            this.scene.start('gameOverScene');  
-            
-        })
-
         this.physics.add.overlap(this.blob1, this.bullet,()=>{  
             this.blob1.destroy(); 
             this.bullet.destroy(); 
             this.boom.anims.play('explode'); 
-            this.dist1 = Phaser.Math.Between(600, 700); 
-            this.heart1 = this.physics.add.sprite(this.dist1, 400, 'heart'); 
+            this.heart1 = this.physics.add.sprite(this.blob1.x, 400, 'heart'); 
             this.physics.add.overlap(this.player, this.heart1,()=>{
                 this.sound.play('click'); 
                 this.hearts += 1; 
@@ -242,9 +249,7 @@ class Play extends Phaser.Scene {
             this.blob2.destroy(); 
             this.bullet.destroy(); 
             this.boom2.anims.play('explode'); 
-            this.dist2 = Phaser.Math.Between(1625, 1750); 
-            
-            this.heart2 = this.physics.add.sprite(this.dist2, 300, 'heart'); 
+            this.heart2 = this.physics.add.sprite(this.blob2.x, 300, 'heart'); 
             this.physics.add.overlap(this.player, this.heart2,()=>{
                 this.sound.play('click'); 
                 this.hearts += 1; 
@@ -256,9 +261,7 @@ class Play extends Phaser.Scene {
             this.blob3.destroy(); 
             this.bullet.destroy(); 
             this.boom3.anims.play('explode'); 
-            this.dist2 = Phaser.Math.Between(2575, 2700); 
-            
-            this.heart3 = this.physics.add.sprite(this.dist2, 300, 'heart'); 
+            this.heart3 = this.physics.add.sprite(this.blob3.x, 300, 'heart'); 
             this.physics.add.overlap(this.player, this.heart3,()=>{
                 this.sound.play('click'); 
                 this.hearts += 1; 
@@ -283,9 +286,9 @@ class Play extends Phaser.Scene {
             }
 
             //move grandma towards character
-            /*if(this.stun == false){
+            if(this.stun == false){
                 this.physics.moveToObject(this.grandma, this.player, this.grandmaspeed);
-            }*/ 
+            }
 
             //check function bounds 
             this.checkCamBounds(this.player, this.cameras.main); 
