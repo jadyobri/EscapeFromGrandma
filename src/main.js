@@ -33,8 +33,10 @@ let keyR; //key to restart
 let keyF; //key to fire
 let keyB; //key to return back from credits
 let keyC; //key for credits 
+let keyG; 
 let keySPACE; //key to start 
 let keyENTER; //key for hard mode
 let hardmode = false;
 
 let playerDirection = 'right'; 
+let gradermode = false; 

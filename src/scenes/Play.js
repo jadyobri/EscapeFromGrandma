@@ -146,13 +146,19 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.blob3, inviswall); 
 
         this.physics.add.collider(this.player, this.blob1, ()=> {
-            this.scene.start('gameOverScene'); 
+            if(gradermode == false){
+                this.scene.start('gameOverScene'); 
+            } 
         });
         this.physics.add.collider(this.player, this.blob2, ()=> {
-            this.scene.start('gameOverScene'); 
+            if(gradermode == false){
+                this.scene.start('gameOverScene'); 
+            } 
         });
         this.physics.add.collider(this.player, this.blob3, ()=> {
-            this.scene.start('gameOverScene'); 
+            if(gradermode == false){
+                this.scene.start('gameOverScene');
+            }  
         }); 
         
 
@@ -202,20 +208,22 @@ class Play extends Phaser.Scene {
 
     update(){
         //overlap between the player and grandma (game over)
-        this.physics.add.overlap(this.player, this.grandma,()=>{  
-            this.player.setVelocity(0,0);
-            this.grandma.setVelocity(0,0);
-            if(this.done != true){
-                this.done = true;
-        
-                this.player.anims.play("struggling-right");
-                this.grandma.anims.play('grandma-kissing-right'); 
-                this.time.addEvent({delay:3000, callback: ()=>{
-                    this.scene.start('gameOverScene');  
-                }})
-            }
-        
-        },null,this)
+        if(gradermode == false){
+            this.physics.add.overlap(this.player, this.grandma,()=>{  
+                this.player.setVelocity(0,0);
+                this.grandma.setVelocity(0,0);
+                if(this.done != true){
+                    this.done = true;
+            
+                    this.player.anims.play("struggling-right");
+                    this.grandma.anims.play('grandma-kissing-right'); 
+                    this.time.addEvent({delay:3000, callback: ()=>{
+                        this.scene.start('gameOverScene');  
+                    }})
+                }
+            
+            },null,this)
+        } 
         
         //collision for the win screen 
         if(this.hearts == 3){
@@ -224,6 +232,7 @@ class Play extends Phaser.Scene {
                 this.grandma.setVelocity(0,0); 
                 if(this.done != true){
                     this.done = true;
+                    gradermode = false; 
                     this.scene.start('winScene'); 
                 } 
             },null,this)
@@ -257,7 +266,7 @@ class Play extends Phaser.Scene {
             this.blob3.destroy(); 
             this.bullet.destroy(); 
             this.boom3.anims.play('explode'); 
-            this.heart3 = this.physics.add.sprite(this.blob3.x, 300, 'heart'); 
+            this.heart3 = this.physics.add.sprite(this.blob3.x, 350, 'heart'); 
             this.physics.add.overlap(this.player, this.heart3,()=>{
                 this.sound.play('click'); 
                 this.hearts += 1; 
