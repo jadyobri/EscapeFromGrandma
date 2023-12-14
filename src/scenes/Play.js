@@ -201,8 +201,6 @@ class Play extends Phaser.Scene {
     } 
 
     update(){
-        console.log('hearts', this.hearts); 
-
         //overlap between the player and grandma (game over)
         this.physics.add.overlap(this.player, this.grandma,()=>{  
             this.player.setVelocity(0,0);
@@ -222,7 +220,6 @@ class Play extends Phaser.Scene {
         //collision for the win screen 
         if(this.hearts == 3){
             this.physics.add.overlap(this.player, this.rectangle,()=>{
-                this.sound.play('click'); 
                 this.player.setVelocity(0,0); 
                 this.grandma.setVelocity(0,0); 
                 if(this.done != true){
@@ -334,9 +331,8 @@ class Play extends Phaser.Scene {
 
             if(Phaser.Input.Keyboard.JustDown(keyF) && this.fireability == true && this.fired > 0){
                 this.shooting = true; 
-                console.log(this.player.y); 
                 this.fired -= 1; 
-                this.sound.play('gunshot'); 
+                this.sound.play('gunshot', {volume: 0.5}); 
                 this.fkey.tint = 0xFACADE; 
 
                 if(this.direction == true){
@@ -381,7 +377,7 @@ class Play extends Phaser.Scene {
                 this.upKey.tint = 0xFACADE
                 this.player.setVelocityY(-270);
                 this.player.setVelocityX(0); 
-                this.sound.play('jump'); 
+                this.sound.play('jump', {volume: 0.5}); 
             }else{
                 this.upKey.tint = 0xFFFFFF; 
             }           
@@ -403,10 +399,10 @@ class Play extends Phaser.Scene {
         //increases grandma's speed every 3 seconds 
         if(this.done == false && this.stun == false){
             if(hardmode==false){
-                this.grandmaspeed += 10; //20,
+                this.grandmaspeed += 15; //20,
             }
             else if(hardmode == true){
-                this.grandmaspeed+=15;
+                this.grandmaspeed+=23; 
             }
             
         }   
