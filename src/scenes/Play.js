@@ -96,11 +96,17 @@ class Play extends Phaser.Scene {
         this.heart1 = this.physics.add.sprite(this.dist1, 400, 'heart').setScale(0.5); 
         this.heart1.setVisible(false); 
 
+        this.moth1 = this.physics.add.sprite(this.dist1+100, 470,'heart').setScale(0.5);
+
         this.heart2 = this.physics.add.sprite(this.dist2, 300, 'heart').setScale(0.5); 
         this.heart2.setVisible(false); 
 
+        this.moth2 = this.physics.add.sprite(this.dist2+100, 330,'heart').setScale(0.5);
+
         this.heart3 = this.physics.add.sprite(this.dist3, 350, 'heart').setScale(0.5); 
-        this.heart3.setVisible(false); 
+        this.heart3.setVisible(false);
+        
+        this.moth3 = this.physics.add.sprite(this.dist3+100, 370, 'heart').setScale(0.5);
 
         //arrow keys and F key 
         this.leftKey = this.add.sprite(100, 100, 'arrowkey'); 
@@ -193,7 +199,6 @@ class Play extends Phaser.Scene {
         
         },null,this)
         
-
         //collision for the win screen 
         if(this.hearts == 3){
             this.physics.add.overlap(this.player, this.rectangle,()=>{
@@ -249,39 +254,41 @@ class Play extends Phaser.Scene {
                 this.player.anims.play('running-left', true);
                 this.direction = true; 
                 this.rightKey.tint = 0xFACADE;  
-                
+            
                 if(this.player.x > 730 && this.player.x < 820){
+                // this.physics.add.overlap(this.player, this.moth1),() =>{
                     this.player.anims.play('grab-gun-left'); 
-                    this.heart1.setVisible(true); 
-                    this.physics.add.overlap(this.player, this.heart1,()=>{
-                        this.sound.play('click'); 
-                        this.hearts += 1; 
-                        this.heart1.destroy(); 
-                    },null,this)
+                //     this.moth1.destroy();
+                //     this.heart1.setVisible(true); 
+                //     this.physics.add.overlap(this.player, this.heart1,()=>{
+                //         this.sound.play('click'); 
+                //         this.hearts += 1; 
+                //         this.heart1.destroy(); 
+                //     },null,this)
 
-                    this.fireability = true; 
-                    this.fkey.tint = 0xFFFFFF; 
-                } 
-
-                if(this.player.x > 1770){
-                    this.heart2.setVisible(true); 
-                    this.physics.add.overlap(this.player, this.heart2,()=>{
-                        this.sound.play('click'); 
-                        this.hearts += 1; 
-                        this.heart2.destroy(); 
-                    },null,this)
+                     this.fireability = true; 
+                     this.fkey.tint = 0xFFFFFF; 
+                 } 
                 }
+                // if(this.player.x > 1770){
+                //     this.heart2.setVisible(true); 
+                //     this.physics.add.overlap(this.player, this.heart2,()=>{
+                //         this.sound.play('click'); 
+                //         this.hearts += 1; 
+                //         this.heart2.destroy(); 
+                //     },null,this)
+                // }
 
-                if(this.player.x > 2720){
-                    this.heart3.setVisible(true); 
-                    this.physics.add.overlap(this.player, this.heart3,()=>{
-                        this.sound.play('click'); 
-                        this.hearts += 1; 
-                        this.heart3.destroy(); 
-                    },null,this)
-                }
+                // if(this.player.x > 2720){
+                //     this.heart3.setVisible(true); 
+                //     this.physics.add.overlap(this.player, this.heart3,()=>{
+                //         this.sound.play('click'); 
+                //         this.hearts += 1; 
+                //         this.heart3.destroy(); 
+                //     },null,this)
+                // }
 
-            } 
+            //} 
 
             else{
                 if(this.direction == true && this.shooting == false){
@@ -296,6 +303,7 @@ class Play extends Phaser.Scene {
                 }
 
             }
+
 
             if(Phaser.Input.Keyboard.JustDown(keyF) && this.fireability == true && this.fired > 0){
                 this.shooting = true; 
@@ -327,8 +335,41 @@ class Play extends Phaser.Scene {
                         this.hit = true; 
                         
                     },null,this)
+                    
                 }
-
+                this.physics.add.overlap(this.bullet, this.moth1,()=>{
+                    // this.player.anims.play('grab-gun-left'); 
+                     //this.moth1.destroy();
+                     console.log("here");
+                     this.heart1.setVisible(true); 
+                     this.physics.add.overlap(this.player, this.heart1,()=>{
+                         this.sound.play('click'); 
+                         this.hearts += 1; 
+                         this.heart1.destroy(); 
+                     },null,this)
+                     this.moth1.destroy();
+                     // this.fireability = true; 
+                     // this.fkey.tint = 0xFFFFFF; 
+                 },null,this )
+                 this.physics.add.overlap(this.bullet,this.moth2,()=>{
+        
+                    this.heart2.setVisible(true); 
+                    this.physics.add.overlap(this.player, this.heart2,()=>{
+                        this.sound.play('click'); 
+                        this.hearts += 1; 
+                        this.heart2.destroy(); 
+                    },null,this)
+                    this.moth2.destroy();
+                },null,this)
+                this.physics.add.overlap(this.bullet,this.moth3,()=>{
+                    this.heart3.setVisible(true); 
+                    this.physics.add.overlap(this.player, this.heart3,()=>{
+                        this.sound.play('click'); 
+                        this.hearts += 1; 
+                        this.heart3.destroy(); 
+                    },null,this)
+                    this.moth3.destroy();
+                },null,this)
                 this.player.once('animationcomplete', ()=> { //delay timer 
                     this.shooting = false; 
                 }) 
