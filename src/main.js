@@ -14,7 +14,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            //debug: true,
             gravity: {
                 x: 0,
                 y: 0, 
@@ -37,5 +37,4 @@ let keySPACE; //key to start
 let keyENTER; //key for hard mode
 let hardmode = false;
 
-let gameOver = false; 
 let playerDirection = 'right'; 
