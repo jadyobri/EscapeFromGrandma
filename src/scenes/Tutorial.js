@@ -4,14 +4,14 @@ class Tutorial extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image('tutorial', './assets/Controls.PNG'); 
+        this.load.image('gameover', 'GameOver.PNG'); 
     } 
 
     create(){
-        this.background = this.add.tileSprite(0, 0, 800, 600, 'tutorial').setOrigin(0,0); 
+        this.background = this.add.tileSprite(0, 0, 800, 600, 'gameover').setOrigin(0,0); 
 
         //particle emitter 
-        const emitter = this.add.particles(675, game.config.height-275, 'heart', {
+        const emitter = this.add.particles(400, game.config.height, 'heart', {
             speed: 100,
             lifespan: 3000,
             frequency: 100, 
@@ -34,11 +34,12 @@ class Tutorial extends Phaser.Scene {
         this.leftkey = this.add.bitmapText(250, game.config.height-400, 'font', 'Use left key to move left').setScale(0.37);
         this.upkey = this.add.bitmapText(250, game.config.height-350, 'font', 'Use up key to jump').setScale(0.37);
         this.fKey = this.add.bitmapText(250, game.config.height-300, 'font', 'Use F key to fire').setScale(0.37)
-        this.gunwarning = this.add.bitmapText(250, game.config.height-265, 'font', 'You can fire a total of 3 times').setScale(0.37); 
+        this.gunwarning = this.add.bitmapText(250, game.config.height-265, 'font', 'You can fire a total of 6 times').setScale(0.37); 
         this.gunwarning2 = this.add.bitmapText(250, game.config.height-240, 'font', 'after grabbing the gun').setScale(0.37); 
-        this.keywarning = this.add.bitmapText(250, game.config.height-200, 'font', 'Collect all 3 keys to escape!').setScale(0.37); 
+        this.keywarning = this.add.bitmapText(250, game.config.height-200, 'font', 'Shoot the evil mothballs and').setScale(0.37); 
+        this.keywarning2 = this.add.bitmapText(250, game.config.height-175, 'font', 'collect all 3 hearts to escape').setScale(0.37); 
         
-        const warning = this.add.bitmapText(140, game.config.height-140, 'font', 'Avoid Grandma at all costs!').setScale(0.37);
+        const warning = this.add.bitmapText(240, game.config.height-95, 'font', 'Avoid Grandma at all costs!').setScale(0.37);
         const fx1 = warning.postFX.addGlow(0xFACADE, 0, 0, false, 0.1, 14);
 
         this.tweens.add({

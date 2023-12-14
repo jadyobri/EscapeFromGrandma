@@ -196,8 +196,7 @@ class Play extends Phaser.Scene {
         this.screen.setScrollFactor(0); 
 
         //stun factor
-        this.stun = false;
-
+        this.stun = false; 
         
     } 
 
