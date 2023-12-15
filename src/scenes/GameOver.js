@@ -9,6 +9,8 @@ class GameOver extends Phaser.Scene {
         //adding keys for restarting the game and going back to menu 
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+        this.ungreat = this.sound.add('ungrateful',{volume:2});
+        this.ungreat.play();
 
         //adding game over text 
         this.gameovertext = this.add.bitmapText(350, game.config.height-550, 'font', 'Game Over').setScale(0.37);
@@ -35,11 +37,13 @@ class GameOver extends Phaser.Scene {
 
 
         if (Phaser.Input.Keyboard.JustDown(keyR)) {
+            this.ungreat.stop();
             playerDirection = 'right'
             this.sound.play('restart'); 
             this.scene.start('playScene');   
         } 
         if(Phaser.Input.Keyboard.JustDown(keyM)){
+            this.ungreat.stop();
             playerDirection = 'right'
             this.sound.play('click'); 
             this.scene.start('menuScene'); 

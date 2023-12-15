@@ -53,6 +53,8 @@ class Load extends Phaser.Scene{
         this.load.audio('restart', 'restart.wav'); //will add credits at a later date 
         this.load.audio('background', 'arcademusic.mp3'); //music by Luca Di Alessandro (Pixabay)
         this.load.audio('gunshot', 'gunshot.mp3'); 
+        this.load.audio('ungrateful', 'UngratefulGrandchildAudio.mp3');
+        this.load.audio('lolahurt',"LolasHurt_1.mp3");
 
         this.load.bitmapFont('font', 'CandyBeans.png', 'CandyBeans.xml'); 
     } 

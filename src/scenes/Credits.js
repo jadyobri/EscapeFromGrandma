@@ -18,7 +18,6 @@ class Credits extends Phaser.Scene {
         this.restartcredit = this.add.bitmapText(200, game.config.height-325, 'font', 'Restart SFX by LorenzoTheGreat').setScale(0.37);
         this.clickcredit = this.add.bitmapText(200, game.config.height-275, 'font', 'Click SFX by MATRIXX_').setScale(0.37);
 
-        this.bkeytext = this.add.bitmapText(275, game.config.height-95, 'font', 'Press B to go back').setScale(0.37); 
     }
 
     update(){

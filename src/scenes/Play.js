@@ -370,6 +370,7 @@ class Play extends Phaser.Scene {
 
                     this.physics.add.overlap(this.bullet, this.grandma,()=>{  
                         this.grandma.anims.play('grandma-hurt'); 
+                        this.sound.play('lolahurt',{volume: 3});
                         this.bullet.destroy(); 
                         //this.grandmaspeed -= 25;
                         this.grandma.setVelocity(0,0);

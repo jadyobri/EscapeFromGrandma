@@ -35,9 +35,10 @@ class Tutorial extends Phaser.Scene {
         this.upkey = this.add.bitmapText(250, game.config.height-350, 'font', 'Use up key to jump').setScale(0.37);
         this.fKey = this.add.bitmapText(250, game.config.height-300, 'font', 'Use F key to fire').setScale(0.37)
         this.gunwarning = this.add.bitmapText(250, game.config.height-265, 'font', 'You can fire a total of 6 times').setScale(0.37); 
-        this.gunwarning2 = this.add.bitmapText(250, game.config.height-240, 'font', 'after grabbing the gun').setScale(0.37); 
-        this.keywarning = this.add.bitmapText(250, game.config.height-200, 'font', 'Shoot the evil mothballs and').setScale(0.37); 
-        this.keywarning2 = this.add.bitmapText(250, game.config.height-175, 'font', 'collect all 3 hearts to escape').setScale(0.37); 
+        this.gunwarning3 = this.add.bitmapText(250, game.config.height-240, 'font', '(4 times for hardmode)').setScale(0.37); 
+        this.gunwarning2 = this.add.bitmapText(250, game.config.height-215, 'font', 'after grabbing the gun').setScale(0.37); 
+        this.keywarning = this.add.bitmapText(250, game.config.height-175, 'font', 'Shoot the evil mothballs and').setScale(0.37); 
+        this.keywarning2 = this.add.bitmapText(250, game.config.height-150, 'font', 'collect all 3 hearts to escape').setScale(0.37); 
         
         const warning = this.add.bitmapText(240, game.config.height-95, 'font', 'Avoid Grandma at all costs!').setScale(0.37);
         const fx1 = warning.postFX.addGlow(0xFACADE, 0, 0, false, 0.1, 14);
