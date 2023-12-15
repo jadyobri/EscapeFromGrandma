@@ -1,2 +1,13 @@
-# EscapeFromGrandma
-This is for the project we have in CMPM120
+# Escape From Grandma's House
+## Adaptation 
+> This game was adapted from the Simpsons's episode 'Bart Gets an F.' A brief glimpse of the cartoon video game was shown, where the player was running away from Granda, only to get caught by mothballs. Using this scene, and various other context clues, we pieced together our iteration of the game. 
+## Gameplay 
+> The game's premise follows the ungrateful grandchild as they try to escape grandma's house without colliding into either grandma herself or the mothballs. The grandchild can use the F key to fire a total of 6 bullets after picking up the gun. Any shots that hit grandma will momentarily stun her. However, shooting the mothballs will reveal a heart. The player's objective is to collect all three hearts (from the mothballs), and successfully escape grandma's house. However, if the player collides with either the mothballs or grandma, they are stuck within the house. 
+## Grader Mode 
+> The grader mode can be accessed by toggling the G key during the menu scene. This option is not listed to public viewers, and is ideally only meant for graders. This key disables collisions with Grandma, and allows the player to play the game without dying. The amount of bullets the player has however remains the same number. 
+## Tutorial Scene 
+> The tutorial provides the user information of the game's controls and informs them to avoid various obstacles, namely Grandma and the Mothballs, along their path. The only user inputs for player control in this game are the arrows keys and the F key. There are various other keys used specifically to transition into other scenes or to restart the game that are listed on the screen.  
+## Assets 
+> Most of the art assets was created by Isha Chury using pixilart.com and Photoshop, with the exception of any music assets. These assets were found in the following two websites: freesound.org and pixabay.com. There are a total of four sound effects used throughout the game, and one looping soundtrack. The credits for all of these are listed in the credits scene, which can be accessed by pressing the C key when the player has successfully escaped Grandma's house. 
+## Phaser Componenets 
+> Key Phaser components used within this game were the following: animations manager, tweens manager, timers, cameras, bitmap text, and the physics system. The animation and tweens manager are used for various animations within the game, most notably, the player's movements. Timers were used to gradually increase grandma's speed, as well as 'freeze' other animations until one specific animation (such as the grandchild struggling) has stopped playing. The camera component was used to transition between different levels. Bitmap text was used within the game to keep the same style of text from the game within our version. Though it's not an exact match to the original, it is similar in style, and contributes to the aesthetic. The physics system was used most notably to create and detect collisions between the grandchild and various obstacles around it. 
