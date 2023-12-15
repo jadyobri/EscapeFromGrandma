@@ -145,10 +145,6 @@ class Play extends Phaser.Scene {
         this.blob3.setBounce(1); 
         this.blob3.setPushable(false); 
 
-        this.boom = this.add.sprite(this.blob1.x, this.blob1.y, 'explosion'); 
-        this.boom2 = this.add.sprite(this.blob2.x, this.blob2.y, 'explosion'); 
-        this.boom3 = this.add.sprite(this.blob3.x, this.blob3.y, 'explosion'); 
-
         //colliders 
         this.physics.add.collider(this.player, inviswall);
         this.physics.add.collider(this.grandma, inviswall);
@@ -270,6 +266,7 @@ class Play extends Phaser.Scene {
         this.physics.add.overlap(this.blob1, this.bullet,()=>{  
             this.blob1.destroy(); 
             this.bullet.destroy(); 
+            this.boom = this.add.sprite(this.blob1.x, this.blob1.y, 'explosion'); 
             this.boom.anims.play('explode'); 
             this.heart1 = this.physics.add.sprite(this.blob1.x, 400, 'heart'); 
             this.physics.add.overlap(this.player, this.heart1,()=>{
@@ -284,6 +281,7 @@ class Play extends Phaser.Scene {
         this.physics.add.overlap(this.blob2, this.bullet,()=>{  
             this.blob2.destroy(); 
             this.bullet.destroy(); 
+            this.boom2 = this.add.sprite(this.blob2.x, this.blob2.y, 'explosion'); 
             this.boom2.anims.play('explode'); 
             this.heart2 = this.physics.add.sprite(this.blob2.x, 300, 'heart'); 
             this.physics.add.overlap(this.player, this.heart2,()=>{
@@ -298,6 +296,7 @@ class Play extends Phaser.Scene {
         this.physics.add.overlap(this.blob3, this.bullet,()=>{  
             this.blob3.destroy(); 
             this.bullet.destroy(); 
+            this.boom3 = this.add.sprite(this.blob3.x, this.blob3.y, 'explosion'); 
             this.boom3.anims.play('explode'); 
             this.heart3 = this.physics.add.sprite(this.blob3.x, 350, 'heart'); 
             this.physics.add.overlap(this.player, this.heart3,()=>{
