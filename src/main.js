@@ -1,3 +1,5 @@
+//Team members: Isha Chury & Jack O'Brien
+
 //Major phaser components: timer events, camera movement, particle emitter, animation manager, bitmap text, and the physics system
 
 /*Key Phaser components used within this game were the following: animations manager, tweens manager, timers, cameras, bitmap text, and the physics system.
