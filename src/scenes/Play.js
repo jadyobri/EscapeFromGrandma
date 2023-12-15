@@ -9,7 +9,8 @@ class Play extends Phaser.Scene {
         //kissing sound 
 
         //background music 
-        //this.sound.play('background'); 
+        this.lolamus = this.sound.add('background');
+        this.lolamus.play();
 
         //initial setup 
         this.gameOver = false; 
@@ -153,20 +154,21 @@ class Play extends Phaser.Scene {
 
         this.physics.add.collider(this.player, this.blob1, ()=> {
             if(gradermode == false){
-                this.scene.start('gameOverScene'); 
-                gradermode = false; 
+                this.scene.start('gameOverScene');
+                this.lolamus.stop();
+                
             } 
         });
         this.physics.add.collider(this.player, this.blob2, ()=> {
             if(gradermode == false){
                 this.scene.start('gameOverScene'); 
-                gradermode = false; 
+                this.lolamus.stop();
             } 
         });
         this.physics.add.collider(this.player, this.blob3, ()=> {
             if(gradermode == false){
                 this.scene.start('gameOverScene');
-                gradermode = false; 
+                this.lolamus.stop();
             }  
         }); 
         
@@ -226,9 +228,9 @@ class Play extends Phaser.Scene {
             
                     this.player.anims.play("struggling-right");
                     this.grandma.anims.play('grandma-kissing-right'); 
-                    gradermode = false; 
                     this.time.addEvent({delay:3000, callback: ()=>{
-                        this.scene.start('gameOverScene');  
+                        this.scene.start('gameOverScene');
+                        this.lolamus.stop();  
                     }})
                 }
             
@@ -244,6 +246,7 @@ class Play extends Phaser.Scene {
                     this.done = true;
                     gradermode = false; 
                     this.scene.start('winScene'); 
+                    this.lolamus.stop();
                 } 
             },null,this)
         } 
@@ -421,7 +424,7 @@ class Play extends Phaser.Scene {
                 this.grandmaspeed += 15; //20,
             }
             else if(hardmode == true){
-                this.grandmaspeed+=23; 
+                this.grandmaspeed+=25; 
             }
             
         }   
