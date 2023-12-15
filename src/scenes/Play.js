@@ -154,16 +154,19 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.player, this.blob1, ()=> {
             if(gradermode == false){
                 this.scene.start('gameOverScene'); 
+                gradermode = false; 
             } 
         });
         this.physics.add.collider(this.player, this.blob2, ()=> {
             if(gradermode == false){
                 this.scene.start('gameOverScene'); 
+                gradermode = false; 
             } 
         });
         this.physics.add.collider(this.player, this.blob3, ()=> {
             if(gradermode == false){
                 this.scene.start('gameOverScene');
+                gradermode = false; 
             }  
         }); 
         
@@ -223,6 +226,7 @@ class Play extends Phaser.Scene {
             
                     this.player.anims.play("struggling-right");
                     this.grandma.anims.play('grandma-kissing-right'); 
+                    gradermode = false; 
                     this.time.addEvent({delay:3000, callback: ()=>{
                         this.scene.start('gameOverScene');  
                     }})
