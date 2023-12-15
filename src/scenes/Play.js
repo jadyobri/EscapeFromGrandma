@@ -12,12 +12,15 @@ class Play extends Phaser.Scene {
         this.lolamus = this.sound.add('background');
         this.lolamus.play();
 
+        //kiss sound
+        this.kiss = this.sound.add('kiss',{volume: 5}, true);
+
         //initial setup 
         this.gameOver = false; 
         this.fireability = false; 
         this.hit = false; 
         this.shooting = false; 
-        this.hearts = 0; 
+        this.hearts = 0;
 
         this.mainscreen = this.add.tileSprite(0, 0, 3000, 600, 'allscenes').setOrigin(0, 0); 
         let inviswall = this.physics.add.sprite(game.config.width+600,game.config.height-60,'invisible');
@@ -104,17 +107,25 @@ class Play extends Phaser.Scene {
         this.upKey.rotation = Math.PI/2; 
         this.downKey.rotation = Math.PI/2*3; 
         this.rightKey.rotation = Math.PI; 
-        this.fkey = this.add.sprite(700, 100, 'fkey'); 
+        this.fkey = this.add.sprite(700, 100, 'fkey');
+        this.fkeyed = this.add.bitmapText(720, 75, 'font', 'x'+ 0).setScale(0.6); 
         this.downKey.tint = 0x333333; 
         this.fkey.tint = 0x333333;
+        this.hearted = this.add.sprite(400, 100, 'heart');
+        this.heartedleft = this.add.bitmapText(420, 75, 'font', 'x'+ this.hearts + "/3").setScale(0.6); 
+        
 
-        //allows arrow keys to remain in the "same place" as the camera moves alongside the player 
+        //allows arrow keys to remain in the "same place" as the camera moves alongside the player
+        this.heartedleft.setScrollFactor(0);
+        this.hearted.setScrollFactor(0); 
         this.leftKey.setScrollFactor(0); 
         this.rightKey.setScrollFactor(0); 
         this.upKey.setScrollFactor(0); 
         this.downKey.setScrollFactor(0); 
         this.fkey.setScrollFactor(0); 
+        this.fkeyed.setScrollFactor(0);
 
+        
         //blobs
         this.blob1 = this.physics.add.sprite(910, game.config.height-150, 'blob'); 
         this.blob1.setVelocityY(160); //130 
@@ -213,7 +224,7 @@ class Play extends Phaser.Scene {
         this.screen.setScrollFactor(0); 
 
         //stun factor
-        this.stun = false; 
+        this.stun = false;
         
     } 
 
@@ -227,10 +238,15 @@ class Play extends Phaser.Scene {
                     this.done = true;
             
                     this.player.anims.play("struggling-right");
-                    this.grandma.anims.play('grandma-kissing-right'); 
+                    this.grandma.anims.play('grandma-kissing-right');
+                    //this.sound.play('kiss',true);
+                    this.kiss.play(); 
+                    this.kiss.setLoop(true);
+                    this.kiss.setRate(2);
                     this.time.addEvent({delay:3000, callback: ()=>{
                         this.scene.start('gameOverScene');
                         this.lolamus.stop();  
+                        this.kiss.stop();
                     }})
                 }
             
@@ -257,8 +273,10 @@ class Play extends Phaser.Scene {
             this.boom.anims.play('explode'); 
             this.heart1 = this.physics.add.sprite(this.blob1.x, 400, 'heart'); 
             this.physics.add.overlap(this.player, this.heart1,()=>{
+                this.hearts += 1;
+                this.heartedleft.text = 'x'+ this.hearts + "/3";
                 this.sound.play('click'); 
-                this.hearts += 1; 
+                 
                 this.heart1.destroy(); 
             },null,this)
         },null,this)
@@ -269,8 +287,10 @@ class Play extends Phaser.Scene {
             this.boom2.anims.play('explode'); 
             this.heart2 = this.physics.add.sprite(this.blob2.x, 300, 'heart'); 
             this.physics.add.overlap(this.player, this.heart2,()=>{
+                this.hearts += 1;
+                this.heartedleft.text = 'x'+ this.hearts + "/3";
                 this.sound.play('click'); 
-                this.hearts += 1; 
+                 
                 this.heart2.destroy(); 
             },null,this)
         },null,this)
@@ -281,8 +301,10 @@ class Play extends Phaser.Scene {
             this.boom3.anims.play('explode'); 
             this.heart3 = this.physics.add.sprite(this.blob3.x, 350, 'heart'); 
             this.physics.add.overlap(this.player, this.heart3,()=>{
-                this.sound.play('click'); 
                 this.hearts += 1; 
+                this.heartedleft.text = 'x'+ this.hearts + "/3";
+                this.sound.play('click'); 
+                
                 this.heart3.destroy(); 
             },null,this)
         },null,this)
@@ -319,6 +341,8 @@ class Play extends Phaser.Scene {
                 this.leftKey.tint = 0xFACADE
 
                 if(this.player.x > 730 && this.player.x < 800){
+                    //this.fkeyed.text = "x " + this.fired;
+                    
                     this.player.anims.play('grab-gun-right'); 
                     this.fireability = true; 
                 }
@@ -352,6 +376,7 @@ class Play extends Phaser.Scene {
             }
 
             if(Phaser.Input.Keyboard.JustDown(keyF) && this.fireability == true && this.fired > 0){
+                this.fkeyed.text = "x" + this.fired;
                 this.shooting = true; 
                 this.fired -= 1; 
                 this.sound.play('gunshot', {volume: 0.5}); 
@@ -389,10 +414,12 @@ class Play extends Phaser.Scene {
                 }) 
             } 
             else if(this.fireability == true && this.fired > 0){
+                this.fkeyed.text = "x" + this.fired;
                 this.fkey.tint = 0xFFFFFF; 
             }
 
             if(this.fired == 0){
+                this.fkeyed.text = "x" + 0;
                 this.fkey.tint = 0x333333; 
             }
 
